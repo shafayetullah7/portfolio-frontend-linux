@@ -21,15 +21,15 @@ export default function ProjectCard(props: ProjectCardProps) {
 
   return (
     <article class="group min-w-0 border border-bf-border bg-bf-surface transition-colors hover:border-bf-accent/40">
-      <div class="grid min-w-0 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+      <div class="grid min-w-0 md:grid-cols-[minmax(0,14rem)_minmax(0,1fr)]">
         <A
           href={`/projects/${props.project.slug}`}
-          class="relative block aspect-[16/10] overflow-hidden border-b border-bf-border bg-bf-bg no-underline md:aspect-auto md:min-h-56 md:border-b-0 md:border-r"
+          class="relative block aspect-[16/10] overflow-hidden border-b border-bf-border bg-bf-bg no-underline md:aspect-auto md:h-48 md:border-b-0 md:border-r"
         >
           <Show
             when={props.project.screenshotUrl}
             fallback={
-              <div class="bf-media-grid relative flex h-full min-h-[11rem] flex-col items-center justify-center gap-2 md:min-h-56">
+              <div class="bf-media-grid relative flex h-full flex-col items-center justify-center gap-2">
                 <span class="text-[2rem] font-bold tracking-widest text-bf-accent/80">{initials()}</span>
                 <span class="text-caption uppercase tracking-[0.14em] text-bf-text-muted">
                   No screenshot
@@ -40,7 +40,7 @@ export default function ProjectCard(props: ProjectCardProps) {
             <img
               src={props.project.screenshotUrl!}
               alt={props.project.title}
-              class="h-full min-h-[11rem] w-full object-cover md:min-h-56"
+              class="h-full w-full object-cover"
               loading="lazy"
             />
           </Show>

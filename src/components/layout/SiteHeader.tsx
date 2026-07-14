@@ -1,9 +1,9 @@
 import { A } from "@solidjs/router";
 import { Container } from "~/components/ui";
-import { useSiteContent } from "~/lib/site-content";
+import { useProfile } from "~/lib/profile";
 
 export default function SiteHeader() {
-  const site = useSiteContent();
+  const profile = useProfile();
 
   return (
     <header class="border-b border-bf-border bg-bf-bg-elevated/90 backdrop-blur-sm">
@@ -12,7 +12,7 @@ export default function SiteHeader() {
           href="/"
           class="text-body font-semibold text-bf-accent no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
         >
-          {site.brand()}
+          {profile.name()}
         </A>
         <nav class="flex items-center gap-4" aria-label="Primary">
           <A

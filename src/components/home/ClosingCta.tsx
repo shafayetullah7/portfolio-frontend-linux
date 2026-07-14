@@ -15,7 +15,7 @@ export default function ClosingCta() {
           href="/contact"
           class="inline-flex h-11 shrink-0 items-center justify-center bg-bf-accent px-6 text-body font-semibold text-bf-bg no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
         >
-          Initialize Chat
+          Get in touch
         </A>
       </Container>
     </section>

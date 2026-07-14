@@ -2,14 +2,14 @@ import { For, Show } from "solid-js";
 import { Container } from "~/components/ui";
 import { platformLabel, siteConfig } from "~/content/site.config";
 import { useClientResource } from "~/lib/api/client-resource";
-import { getContact, getProfile } from "~/lib/api/endpoints/public";
+import { getContact } from "~/lib/api/endpoints/public";
+import { useProfile } from "~/lib/profile";
 import { useSiteContent } from "~/lib/site-content";
 
 export default function SiteFooter() {
   const site = useSiteContent();
-  const profile = useClientResource(() => getProfile());
+  const profile = useProfile();
   const contact = useClientResource(() => getContact());
-  const displayName = () => profile.data()?.profile?.name ?? site.brand();
   const socials = () => contact.data()?.socialLinks ?? [];
 
   return (
@@ -18,7 +18,7 @@ export default function SiteFooter() {
         <div class="flex flex-col gap-1">
           <p class="text-caption">{site.footerVersion()}</p>
           <p class="text-caption">
-            {siteConfig.footer.copyright} {displayName()}
+            {siteConfig.footer.copyright} {profile.name()}
           </p>
         </div>
 
@@ -41,9 +41,9 @@ export default function SiteFooter() {
 
         <div class="text-caption">
           <Show
-            when={!profile.loading() && !profile.error()}
+            when={!profile.resource.loading() && !profile.resource.error()}
             fallback={
-              <Show when={profile.error()} fallback={<span>API: …</span>}>
+              <Show when={profile.resource.error()} fallback={<span>API: …</span>}>
                 <span class="text-bf-error">API: unreachable</span>
               </Show>
             }
