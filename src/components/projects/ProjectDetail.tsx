@@ -21,21 +21,27 @@ export default function ProjectDetail(props: ProjectDetailProps) {
   return (
     <article class="flex flex-col gap-8">
       <div>
-        <A href="/projects" class="text-caption text-bf-text-muted no-underline hover:text-bf-accent">
+        <A
+          href="/projects"
+          class="text-caption text-bf-text-muted no-underline hover:text-bf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+        >
           ← ./projects
         </A>
-        <h1 class="mt-4 text-display text-bf-text">{props.project.title}</h1>
+        <h1 class="mt-4 text-display break-words text-bf-text">{props.project.title}</h1>
         <div class="mt-4 flex flex-wrap gap-2">
           <For each={tags()}>{(t) => <Tag>{t}</Tag>}</For>
         </div>
       </div>
 
-      <div class="min-h-56 overflow-hidden border border-bf-border bg-bf-bg-elevated">
+      <div class="min-h-56 overflow-hidden border border-bf-border bg-bf-bg">
         <Show
           when={props.project.screenshotUrl}
           fallback={
-            <div class="flex min-h-56 items-center justify-center text-heading text-bf-text-muted">
-              {initials()}
+            <div class="bf-media-grid flex min-h-56 flex-col items-center justify-center gap-2">
+              <span class="text-[2rem] font-bold tracking-widest text-bf-accent/80">{initials()}</span>
+              <span class="text-caption uppercase tracking-[0.14em] text-bf-text-muted">
+                Upload a screenshot in admin media
+              </span>
             </div>
           }
         >

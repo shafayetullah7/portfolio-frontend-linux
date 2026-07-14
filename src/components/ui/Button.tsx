@@ -1,11 +1,12 @@
 import { JSX, splitProps } from "solid-js";
 
-type ButtonVariant = "solid" | "outline" | "ghost";
+type ButtonVariant = "solid" | "outline" | "ghost" | "danger";
 
 const variants: Record<ButtonVariant, string> = {
   solid: "bg-bf-accent text-bf-bg hover:opacity-90 font-semibold",
   outline: "border border-bf-accent text-bf-accent hover:bg-bf-accent-dim",
   ghost: "text-bf-text-muted hover:text-bf-text hover:bg-bf-surface",
+  danger: "border border-bf-error text-bf-error hover:bg-bf-error/10",
 };
 
 interface ButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {

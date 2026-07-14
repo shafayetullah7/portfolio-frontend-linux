@@ -4,13 +4,19 @@ import { siteConfig } from "~/content/site.config";
 
 export default function SiteHeader() {
   return (
-    <header class="border-b border-bf-border bg-bf-bg-elevated/80 backdrop-blur-sm">
+    <header class="border-b border-bf-border bg-bf-bg-elevated/90 backdrop-blur-sm">
       <Container class="flex h-14 items-center justify-between gap-4">
-        <A href="/" class="text-body font-semibold text-bf-accent no-underline hover:opacity-90">
+        <A
+          href="/"
+          class="text-body font-semibold text-bf-accent no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+        >
           {siteConfig.brand}
         </A>
-        <nav class="flex items-center gap-4">
-          <A href="/projects" class="text-caption text-bf-text-muted no-underline hover:text-bf-text">
+        <nav class="flex items-center gap-4" aria-label="Primary">
+          <A
+            href="/projects"
+            class="text-caption text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+          >
             ./projects
           </A>
           <A

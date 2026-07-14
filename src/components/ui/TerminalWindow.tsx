@@ -12,7 +12,7 @@ export default function TerminalWindow(props: TerminalWindowProps) {
       class={`overflow-hidden border border-bf-border bg-bf-surface ${local.class ?? ""}`}
       {...rest}
     >
-      <div class="flex items-center gap-2 border-b border-bf-border bg-bf-bg-elevated px-3 py-2">
+      <div class="flex items-center gap-2 border-b border-bf-border bg-bf-bg-elevated px-3 py-2.5">
         <Show when={local.showDots !== false}>
           <span class="flex gap-1.5" aria-hidden="true">
             <span class="size-2.5 rounded-full bg-bf-border-strong" />
@@ -21,10 +21,10 @@ export default function TerminalWindow(props: TerminalWindowProps) {
           </span>
         </Show>
         <Show when={local.title}>
-          <span class="text-caption">{local.title}</span>
+          <span class="ml-1 text-caption text-bf-text-muted">{local.title}</span>
         </Show>
       </div>
-      <div class="p-4 text-body text-bf-text">{local.children}</div>
+      <div class="bg-bf-bg p-4 text-body text-bf-text sm:p-5">{local.children}</div>
     </div>
   );
 }

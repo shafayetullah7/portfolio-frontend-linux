@@ -36,10 +36,10 @@ export default function HeroSection() {
   };
 
   return (
-    <section class="bf-hero-enter">
-      <Container class="flex flex-col gap-8 py-16 sm:gap-10 sm:py-24">
-        <div class="flex flex-col gap-4">
-          <h1 class="text-display text-bf-text">
+    <section class="bf-hero-enter border-b border-bf-border">
+      <Container class="flex flex-col gap-8 py-20 sm:gap-10 sm:py-28">
+        <div class="flex flex-col gap-5">
+          <h1 class="text-display break-words text-bf-text">
             {title()}
             <span class="bf-cursor-blink text-bf-accent" aria-hidden="true">
               _
@@ -51,13 +51,13 @@ export default function HeroSection() {
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
           <A
             href="/contact"
-            class="inline-flex h-11 items-center justify-center bg-bf-accent px-5 text-body font-semibold text-bf-bg no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+            class="inline-flex h-11 items-center justify-center bg-bf-accent px-6 text-body font-semibold text-bf-bg no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
           >
             Run Diagnostics
           </A>
           <A
             href="/projects"
-            class="inline-flex h-11 items-center justify-center border border-bf-accent px-5 text-body font-semibold text-bf-accent no-underline hover:bg-bf-accent-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+            class="inline-flex h-11 items-center justify-center border border-bf-accent px-6 text-body font-semibold text-bf-accent no-underline hover:bg-bf-accent-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
           >
             Read Docs
           </A>

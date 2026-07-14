@@ -34,6 +34,15 @@ export interface Project {
   features: { id: string; content: string; sortOrder: number }[];
 }
 
+export interface MediaItem {
+  id: string;
+  fileName: string;
+  mimeType: string;
+  size: number;
+  url: string;
+  usesCount?: number;
+}
+
 export interface Skill {
   id: string;
   name: string;
@@ -58,4 +67,21 @@ export interface ContactData {
   email: string;
   gpgKey?: string | null;
   socialLinks: { id: string; platform: string; url: string }[];
+}
+
+export interface AdminUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+}
+
+export interface DashboardStats {
+  projects: number;
+  publishedProjects: number;
+  draftProjects: number;
+  skills: number;
+  experiences: number;
+  media: number;
+  unreadSubmissions?: number;
 }

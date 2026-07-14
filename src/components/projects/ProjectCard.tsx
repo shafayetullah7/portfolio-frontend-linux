@@ -20,24 +20,27 @@ export default function ProjectCard(props: ProjectCardProps) {
       .toUpperCase();
 
   return (
-    <article class="group border border-bf-border bg-bf-surface transition-colors hover:border-bf-border-strong">
-      <div class="grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+    <article class="group min-w-0 border border-bf-border bg-bf-surface transition-colors hover:border-bf-accent/40">
+      <div class="grid min-w-0 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <A
           href={`/projects/${props.project.slug}`}
-          class="relative block min-h-44 overflow-hidden border-b border-bf-border bg-bf-bg-elevated no-underline md:min-h-52 md:border-b-0 md:border-r"
+          class="relative block aspect-[16/10] overflow-hidden border-b border-bf-border bg-bf-bg no-underline md:aspect-auto md:min-h-56 md:border-b-0 md:border-r"
         >
           <Show
             when={props.project.screenshotUrl}
             fallback={
-              <div class="flex h-full min-h-44 items-center justify-center text-heading text-bf-text-muted md:min-h-52">
-                {initials()}
+              <div class="bf-media-grid relative flex h-full min-h-[11rem] flex-col items-center justify-center gap-2 md:min-h-56">
+                <span class="text-[2rem] font-bold tracking-widest text-bf-accent/80">{initials()}</span>
+                <span class="text-caption uppercase tracking-[0.14em] text-bf-text-muted">
+                  No screenshot
+                </span>
               </div>
             }
           >
             <img
               src={props.project.screenshotUrl!}
               alt={props.project.title}
-              class="h-full min-h-44 w-full object-cover md:min-h-52"
+              class="h-full min-h-[11rem] w-full object-cover md:min-h-56"
               loading="lazy"
             />
           </Show>
@@ -52,7 +55,7 @@ export default function ProjectCard(props: ProjectCardProps) {
             <h3 class="text-heading text-bf-text">
               <A
                 href={`/projects/${props.project.slug}`}
-                class="text-bf-text no-underline hover:text-bf-accent"
+                class="text-bf-text no-underline hover:text-bf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
               >
                 {props.project.title}
               </A>
@@ -62,11 +65,11 @@ export default function ProjectCard(props: ProjectCardProps) {
             </p>
           </div>
 
-          <div class="flex flex-wrap gap-4 text-caption">
+          <div class="flex flex-wrap gap-x-5 gap-y-2 border-t border-bf-border pt-3 text-caption">
             <Show when={props.project.status}>
               <span>
                 <span class="text-bf-text-muted">Status </span>
-                <span class="text-bf-accent">{props.project.status}</span>
+                <span class="font-semibold uppercase text-bf-accent">{props.project.status}</span>
               </span>
             </Show>
             <Show when={props.project.buildStatus}>
@@ -83,8 +86,11 @@ export default function ProjectCard(props: ProjectCardProps) {
             </Show>
           </div>
 
-          <div class="mt-auto flex flex-wrap gap-3 text-caption">
-            <A href={`/projects/${props.project.slug}`} class="text-bf-accent no-underline hover:underline">
+          <div class="mt-auto flex flex-wrap gap-4 text-caption">
+            <A
+              href={`/projects/${props.project.slug}`}
+              class="text-bf-accent no-underline hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+            >
               Detail →
             </A>
             <Show when={props.project.repoUrl}>
@@ -92,7 +98,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 href={props.project.repoUrl!}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-bf-text-muted no-underline hover:text-bf-text"
+                class="text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
               >
                 Repo
               </a>
@@ -102,7 +108,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 href={props.project.docsUrl!}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-bf-text-muted no-underline hover:text-bf-text"
+                class="text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
               >
                 Live / Docs
               </a>

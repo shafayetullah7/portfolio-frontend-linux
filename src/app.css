@@ -23,13 +23,22 @@
     font-variant-ligatures: none;
   }
   body {
-    @apply bg-bf-bg text-bf-text antialiased;
+    @apply overflow-x-hidden bg-bf-bg text-bf-text antialiased;
   }
 }
 
 @utility bf-grid-bg {
   background-image: radial-gradient(var(--color-bf-border) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+@utility bf-media-grid {
+  background-color: var(--color-bf-bg);
+  background-image:
+    radial-gradient(circle at 30% 20%, var(--color-bf-accent-dim), transparent 55%),
+    linear-gradient(var(--color-bf-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-bf-border) 1px, transparent 1px);
+  background-size: auto, 24px 24px, 24px 24px;
 }
 
 @utility text-display {
