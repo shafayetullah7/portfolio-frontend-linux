@@ -1,9 +1,11 @@
 import { For } from "solid-js";
 import PhilosophyCard from "~/components/home/PhilosophyCard";
 import { Container, SectionHeader } from "~/components/ui";
-import { siteConfig } from "~/content/site.config";
+import { useSiteContent } from "~/lib/site-content";
 
 export default function TechPhilosophy() {
+  const site = useSiteContent();
+
   return (
     <section class="border-t border-bf-border py-16 sm:py-24">
       <Container>
@@ -12,9 +14,13 @@ export default function TechPhilosophy() {
           caption="Defaults that keep systems honest when traffic and teams grow."
         />
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <For each={siteConfig.philosophy}>
+          <For each={site.philosophy()}>
             {(item) => (
-              <PhilosophyCard title={item.title} body={item.body} icon={item.icon} />
+              <PhilosophyCard
+                title={item.title}
+                body={item.body}
+                icon={item.icon ?? undefined}
+              />
             )}
           </For>
         </div>

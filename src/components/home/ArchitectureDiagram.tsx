@@ -1,10 +1,7 @@
-import { siteConfig } from "~/content/site.config";
-
-function labelFor(id: string) {
-  return siteConfig.architecture.nodes.find((n) => n.id === id)?.label ?? id;
-}
+import { useSiteContent } from "~/lib/site-content";
 
 export default function ArchitectureDiagram() {
+  const site = useSiteContent();
   const stroke = "currentColor";
   return (
     <div class="min-w-0 overflow-x-auto border border-bf-border bg-bf-bg p-4 text-bf-accent sm:p-6">
@@ -36,7 +33,7 @@ export default function ArchitectureDiagram() {
           font-size="11"
           font-family="monospace"
         >
-          {labelFor("clients")}
+          {site.labelFor("clients")}
         </text>
         <line x1="240" y1="52" x2="240" y2="72" stroke={stroke} stroke-width="1.5" />
 
@@ -49,7 +46,7 @@ export default function ArchitectureDiagram() {
           font-size="11"
           font-family="monospace"
         >
-          {labelFor("loadBalancer")}
+          {site.labelFor("loadBalancer")}
         </text>
 
         {/* Fan to services */}
@@ -68,7 +65,7 @@ export default function ArchitectureDiagram() {
           font-size="11"
           font-family="monospace"
         >
-          {labelFor("auth")}
+          {site.labelFor("auth")}
         </text>
 
         <rect x="180" y="148" width="120" height="36" fill="var(--color-bf-surface)" stroke={stroke} />
@@ -80,7 +77,7 @@ export default function ArchitectureDiagram() {
           font-size="11"
           font-family="monospace"
         >
-          {labelFor("coreApi")}
+          {site.labelFor("coreApi")}
         </text>
 
         <rect x="340" y="148" width="120" height="36" fill="var(--color-bf-surface)" stroke={stroke} />
@@ -92,7 +89,7 @@ export default function ArchitectureDiagram() {
           font-size="11"
           font-family="monospace"
         >
-          {labelFor("worker")}
+          {site.labelFor("worker")}
         </text>
 
         {/* Services -> DBs */}
@@ -110,7 +107,7 @@ export default function ArchitectureDiagram() {
           font-size="11"
           font-family="monospace"
         >
-          {labelFor("postgres")}
+          {site.labelFor("postgres")}
         </text>
 
         <rect x="260" y="240" width="120" height="36" fill="var(--color-bf-surface)" stroke={stroke} />
@@ -122,8 +119,9 @@ export default function ArchitectureDiagram() {
           font-size="11"
           font-family="monospace"
         >
-          {labelFor("redis")}
-        </text>      </svg>
+          {site.labelFor("redis")}
+        </text>
+      </svg>
     </div>
   );
 }

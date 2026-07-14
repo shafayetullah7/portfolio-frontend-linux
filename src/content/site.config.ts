@@ -1,3 +1,8 @@
+/**
+ * Static fallbacks + fixed diagram node ids.
+ * Editable marketing content is served from GET /api/v1/public/site-content;
+ * these values apply when the API is unreachable or returns empty lists.
+ */
 export const siteConfig = {
   brand: "lite.linux",
   footer: {
@@ -17,12 +22,13 @@ export const siteConfig = {
       } as Record<string, string[]>,
     },
   },
-  /** Sample platform targets for the metrics strip (not live telemetry). */
+  /** Fallback metrics strip (not live telemetry). */
   metrics: [
     { value: "99.99%", label: "UPTIME RECORD" },
     { value: "10k+", label: "REQS / SEC" },
     { value: "45ms", label: "RAW LATENCY" },
   ] as { label: string; value: string }[],
+  /** Fallback philosophy cards. */
   philosophy: [
     {
       id: "clean-architecture",
@@ -62,6 +68,7 @@ export const siteConfig = {
     },
   ] as { id: string; title: string; body: string; icon?: string }[],
   architecture: {
+    /** Fallback principle list beside the diagram. */
     principles: [
       {
         title: "Microservice Patterns",
@@ -76,6 +83,10 @@ export const siteConfig = {
         body: "Verify every hop. Least privilege by default; secrets never in plaintext configs.",
       },
     ] as { title: string; body: string }[],
+    /**
+     * Fixed SVG node ids (topology is code-only).
+     * Default labels + admin known keys; CMS can override via architectureNodeLabels.
+     */
     nodes: [
       { id: "clients", label: "Client Apps" },
       { id: "loadBalancer", label: "Load Balancer" },

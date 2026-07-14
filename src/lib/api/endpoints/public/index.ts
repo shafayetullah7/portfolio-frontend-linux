@@ -4,6 +4,7 @@ import type {
   ExperienceEntry,
   ProfileData,
   Project,
+  SiteContentData,
   Skill,
 } from "../../types/portfolio.types";
 
@@ -16,6 +17,8 @@ export const getProjectBySlug = (slug: string) =>
 export const getSkills = () => fetcher<Skill[]>("/api/v1/public/skills");
 export const getExperience = () => fetcher<ExperienceEntry[]>("/api/v1/public/experience");
 export const getContact = () => fetcher<ContactData | null>("/api/v1/public/contact");
+export const getSiteContent = () =>
+  fetcher<SiteContentData>("/api/v1/public/site-content");
 
 export const submitContact = (body: {
   name: string;

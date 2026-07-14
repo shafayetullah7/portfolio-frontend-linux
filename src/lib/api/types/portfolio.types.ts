@@ -85,3 +85,40 @@ export interface DashboardStats {
   media: number;
   unreadSubmissions?: number;
 }
+
+export interface SiteMetric {
+  id: string;
+  label: string;
+  value: string;
+  sortOrder: number;
+}
+
+export interface SitePhilosophy {
+  id: string;
+  title: string;
+  body: string;
+  icon: string | null;
+  sortOrder: number;
+}
+
+export interface SiteArchitecturePrinciple {
+  id: string;
+  title: string;
+  body: string;
+  sortOrder: number;
+}
+
+export interface SiteSettings {
+  id?: string;
+  brand: string;
+  footerVersion: string;
+  architectureNodeLabels: Record<string, string>;
+}
+
+export interface SiteContentData {
+  settings: { brand: string; footerVersion: string };
+  metrics: SiteMetric[];
+  philosophy: SitePhilosophy[];
+  architecturePrinciples: SiteArchitecturePrinciple[];
+  architectureNodeLabels: Record<string, string>;
+}

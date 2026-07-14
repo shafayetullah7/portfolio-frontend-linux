@@ -7,6 +7,11 @@ import type {
   ContactData,
   DashboardStats,
   MediaItem,
+  SiteArchitecturePrinciple,
+  SiteContentData,
+  SiteMetric,
+  SitePhilosophy,
+  SiteSettings,
 } from "../../types/portfolio.types";
 
 const admin = (path: string, init?: FetchOptions) =>
@@ -59,4 +64,45 @@ export const adminApi = {
     return admin("/media/upload", { method: "POST", body: form });
   },
   deleteMedia: (id: string) => admin(`/media/${id}`, { method: "DELETE" }),
+  getSiteContent: () => admin("/site/content") as Promise<SiteContentData>,
+  getSiteSettings: () => admin("/site/settings") as Promise<SiteSettings>,
+  updateSiteSettings: (body: unknown) =>
+    admin("/site/settings", { method: "PUT", body: JSON.stringify(body) }) as Promise<SiteSettings>,
+  listSiteMetrics: () => admin("/site/metrics") as Promise<SiteMetric[]>,
+  createSiteMetric: (body: unknown) =>
+    admin("/site/metrics", { method: "POST", body: JSON.stringify(body) }) as Promise<SiteMetric>,
+  updateSiteMetric: (id: string, body: unknown) =>
+    admin(`/site/metrics/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+    }) as Promise<SiteMetric>,
+  deleteSiteMetric: (id: string) =>
+    admin(`/site/metrics/${id}`, { method: "DELETE" }),
+  listSitePhilosophy: () => admin("/site/philosophy") as Promise<SitePhilosophy[]>,
+  createSitePhilosophy: (body: unknown) =>
+    admin("/site/philosophy", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }) as Promise<SitePhilosophy>,
+  updateSitePhilosophy: (id: string, body: unknown) =>
+    admin(`/site/philosophy/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+    }) as Promise<SitePhilosophy>,
+  deleteSitePhilosophy: (id: string) =>
+    admin(`/site/philosophy/${id}`, { method: "DELETE" }),
+  listSiteArchitecturePrinciples: () =>
+    admin("/site/architecture-principles") as Promise<SiteArchitecturePrinciple[]>,
+  createSiteArchitecturePrinciple: (body: unknown) =>
+    admin("/site/architecture-principles", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }) as Promise<SiteArchitecturePrinciple>,
+  updateSiteArchitecturePrinciple: (id: string, body: unknown) =>
+    admin(`/site/architecture-principles/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+    }) as Promise<SiteArchitecturePrinciple>,
+  deleteSiteArchitecturePrinciple: (id: string) =>
+    admin(`/site/architecture-principles/${id}`, { method: "DELETE" }),
 };

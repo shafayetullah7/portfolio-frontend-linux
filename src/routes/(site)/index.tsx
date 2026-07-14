@@ -8,8 +8,10 @@ import TechPhilosophy from "~/components/home/TechPhilosophy";
 import { siteConfig, truncateBio } from "~/content/site.config";
 import { useClientResource } from "~/lib/api/client-resource";
 import { getProfile } from "~/lib/api/endpoints/public";
+import { useSiteContent } from "~/lib/site-content";
 
 export default function HomePage() {
+  const site = useSiteContent();
   const profile = useClientResource(() => getProfile());
   const description = () => {
     const bio = profile.data()?.profile?.bio?.trim();
@@ -20,7 +22,7 @@ export default function HomePage() {
   return (
     <>
       <Seo
-        title={`${siteConfig.brand} — ${siteConfig.hero.title}`}
+        title={`${site.brand()} — ${siteConfig.hero.title}`}
         description={description()}
       />
       <HeroSection />

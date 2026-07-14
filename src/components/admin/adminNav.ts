@@ -7,6 +7,7 @@ export interface AdminNavItem {
 export const adminNav: AdminNavItem[] = [
   { path: "/admin", label: "Dashboard", caption: "overview" },
   { path: "/admin/profile", label: "Profile", caption: "identity" },
+  { path: "/admin/site", label: "Site", caption: "content" },
   { path: "/admin/projects", label: "Projects", caption: "deployments" },
   { path: "/admin/skills", label: "Skills", caption: "capabilities" },
   { path: "/admin/experience", label: "Experience", caption: "timeline" },

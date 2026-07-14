@@ -1,8 +1,10 @@
 import { A } from "@solidjs/router";
 import { Container } from "~/components/ui";
-import { siteConfig } from "~/content/site.config";
+import { useSiteContent } from "~/lib/site-content";
 
 export default function SiteHeader() {
+  const site = useSiteContent();
+
   return (
     <header class="border-b border-bf-border bg-bf-bg-elevated/90 backdrop-blur-sm">
       <Container class="flex h-14 items-center justify-between gap-4">
@@ -10,7 +12,7 @@ export default function SiteHeader() {
           href="/"
           class="text-body font-semibold text-bf-accent no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
         >
-          {siteConfig.brand}
+          {site.brand()}
         </A>
         <nav class="flex items-center gap-4" aria-label="Primary">
           <A

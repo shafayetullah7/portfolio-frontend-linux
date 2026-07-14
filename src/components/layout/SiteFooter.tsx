@@ -3,18 +3,20 @@ import { Container } from "~/components/ui";
 import { platformLabel, siteConfig } from "~/content/site.config";
 import { useClientResource } from "~/lib/api/client-resource";
 import { getContact, getProfile } from "~/lib/api/endpoints/public";
+import { useSiteContent } from "~/lib/site-content";
 
 export default function SiteFooter() {
+  const site = useSiteContent();
   const profile = useClientResource(() => getProfile());
   const contact = useClientResource(() => getContact());
-  const displayName = () => profile.data()?.profile?.name ?? siteConfig.brand;
+  const displayName = () => profile.data()?.profile?.name ?? site.brand();
   const socials = () => contact.data()?.socialLinks ?? [];
 
   return (
     <footer class="mt-auto border-t border-bf-border bg-bf-bg-elevated">
       <Container class="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between">
         <div class="flex flex-col gap-1">
-          <p class="text-caption">{siteConfig.footer.version}</p>
+          <p class="text-caption">{site.footerVersion()}</p>
           <p class="text-caption">
             {siteConfig.footer.copyright} {displayName()}
           </p>

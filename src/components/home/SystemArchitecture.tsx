@@ -1,9 +1,11 @@
 import { For } from "solid-js";
 import ArchitectureDiagram from "~/components/home/ArchitectureDiagram";
 import { Container, SectionHeader } from "~/components/ui";
-import { siteConfig } from "~/content/site.config";
+import { useSiteContent } from "~/lib/site-content";
 
 export default function SystemArchitecture() {
+  const site = useSiteContent();
+
   return (
     <section id="architecture" class="scroll-mt-20 py-16 sm:py-24">
       <Container>
@@ -13,7 +15,7 @@ export default function SystemArchitecture() {
         />
         <div class="grid gap-10 md:grid-cols-2 md:items-start md:gap-12">
           <ul class="flex flex-col gap-6">
-            <For each={siteConfig.architecture.principles}>
+            <For each={site.principles()}>
               {(p) => (
                 <li class="border-l-2 border-bf-accent pl-4">
                   <h3 class="text-heading text-bf-text">{p.title}</h3>
