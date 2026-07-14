@@ -1,23 +1,21 @@
 import { createAsync } from "@solidjs/router";
-import { createSignal } from "solid-js";
 
-/** Resource-shaped wrapper around `createAsync` for QueryState / loading UI. */
+type AsyncResult<T> =
+  | { status: "ok"; data: T }
+  | { status: "error"; error: unknown };
+
+/**
+ * Resource-shaped wrapper around `createAsync` for QueryState / loading UI.
+ * Loading/error must be derived from the async value itself so SSR HTML and
+ * client hydration stay in sync (no parallel signals that reset on hydrate).
+ */
 export function usePublicQueryResource<T>(fetcher: () => Promise<T>) {
-  const [error, setError] = createSignal<unknown>();
-  const [settled, setSettled] = createSignal(false);
-
-  const value = createAsync(
-    async (): Promise<T | undefined> => {
-      setError(undefined);
-      setSettled(false);
+  const result = createAsync(
+    async (): Promise<AsyncResult<T>> => {
       try {
-        const result = await fetcher();
-        setSettled(true);
-        return result;
-      } catch (e) {
-        setError(() => e);
-        setSettled(true);
-        return undefined;
+        return { status: "ok", data: await fetcher() };
+      } catch (error) {
+        return { status: "error", error };
       }
     },
     { deferStream: true },
@@ -25,10 +23,13 @@ export function usePublicQueryResource<T>(fetcher: () => Promise<T>) {
 
   return {
     data: (): T | undefined => {
-      if (error()) return undefined;
-      return value.latest as T | undefined;
+      const r = result();
+      return r?.status === "ok" ? r.data : undefined;
     },
-    loading: () => !settled(),
-    error: () => error(),
+    loading: () => result() === undefined,
+    error: () => {
+      const r = result();
+      return r?.status === "error" ? r.error : undefined;
+    },
   };
 }
