@@ -4,11 +4,11 @@ import {
   type Accessor,
   type ParentProps,
 } from "solid-js";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getContact } from "~/lib/api/endpoints/public";
+import { getContactQuery } from "~/lib/api/public-queries";
+import { usePublicQueryResource } from "~/lib/api/use-public-query";
 import type { ContactData } from "~/lib/api/types/portfolio.types";
 
-type ContactResource = ReturnType<typeof useClientResource<ContactData | null>>;
+type ContactResource = ReturnType<typeof usePublicQueryResource<ContactData | null>>;
 
 interface ContactContextValue {
   resource: ContactResource;
@@ -20,7 +20,7 @@ interface ContactContextValue {
 const ContactContext = createContext<ContactContextValue>();
 
 export function ContactProvider(props: ParentProps) {
-  const resource = useClientResource(() => getContact());
+  const resource = usePublicQueryResource(() => getContactQuery());
 
   const data = () => resource.data();
 

@@ -5,11 +5,11 @@ import {
   type ParentProps,
 } from "solid-js";
 import { siteConfig } from "~/content/site.config";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getSiteContent } from "~/lib/api/endpoints/public";
+import { getSiteContentQuery } from "~/lib/api/public-queries";
+import { usePublicQueryResource } from "~/lib/api/use-public-query";
 import type { SiteContentData } from "~/lib/api/types/portfolio.types";
 
-type SiteContentResource = ReturnType<typeof useClientResource<SiteContentData>>;
+type SiteContentResource = ReturnType<typeof usePublicQueryResource<SiteContentData>>;
 
 interface SiteContentContextValue {
   resource: SiteContentResource;
@@ -26,7 +26,7 @@ interface SiteContentContextValue {
 const SiteContentContext = createContext<SiteContentContextValue>();
 
 export function SiteContentProvider(props: ParentProps) {
-  const resource = useClientResource(() => getSiteContent());
+  const resource = usePublicQueryResource(() => getSiteContentQuery());
 
   const data = () => resource.data();
 

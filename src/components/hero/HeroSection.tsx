@@ -3,14 +3,14 @@ import { For, Show } from "solid-js";
 import HeroTerminal, { fallbackWhoami } from "~/components/hero/HeroTerminal";
 import { Container, Tag } from "~/components/ui";
 import { siteConfig, truncateBio } from "~/content/site.config";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getSkills } from "~/lib/api/endpoints/public";
+import { getSkillsQuery } from "~/lib/api/public-queries";
+import { usePublicQueryResource } from "~/lib/api/use-public-query";
 import { useProfile } from "~/lib/profile";
 import { groupSkillsByCategory } from "~/lib/skills-json";
 
 export default function HeroSection() {
   const profile = useProfile();
-  const skills = useClientResource(() => getSkills());
+  const skills = usePublicQueryResource(() => getSkillsQuery());
 
   const whoamiLine = () => {
     if (profile.resource.error() || !profile.resource.data()?.profile) {

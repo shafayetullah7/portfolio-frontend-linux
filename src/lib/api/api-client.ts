@@ -96,3 +96,25 @@ export async function fetcher<T>(
 
   return parseResponse<T>(response, unwrapData);
 }
+
+/** Cookie-free GET for public endpoints — safe on SSR and in the browser. */
+export async function publicGet<T>(
+  endpoint: string,
+  options: { strict?: boolean; unwrapData?: boolean } = {},
+): Promise<T> {
+  const { strict = true, unwrapData = true } = options;
+  const response = await fetch(buildURL(endpoint), { credentials: "omit" });
+
+  if (!response.ok) {
+    if (strict || response.status !== 404) {
+      const err = await response.json().catch(() => ({}));
+      throw new ApiError(
+        (err as { message?: string }).message || `API Error ${response.status}`,
+        response.status,
+        err,
+      );
+    }
+  }
+
+  return parseResponse<T>(response, unwrapData);
+}

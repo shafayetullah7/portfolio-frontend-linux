@@ -1,7 +1,7 @@
 import { For, Show } from "solid-js";
 import { Container, SectionHeader, Tag } from "~/components/ui";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getExperience } from "~/lib/api/endpoints/public";
+import { getExperienceQuery } from "~/lib/api/public-queries";
+import { usePublicQueryResource } from "~/lib/api/use-public-query";
 import type { ExperienceEntry } from "~/lib/api/types/portfolio.types";
 
 function formatMonth(iso: string): string {
@@ -19,7 +19,7 @@ function dateRange(entry: ExperienceEntry): string {
 }
 
 export default function ExperienceLog() {
-  const experience = useClientResource(() => getExperience());
+  const experience = usePublicQueryResource(() => getExperienceQuery());
 
   const entries = () => {
     const list = experience.data();

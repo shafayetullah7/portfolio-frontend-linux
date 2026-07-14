@@ -5,12 +5,12 @@ import {
   type ParentProps,
 } from "solid-js";
 import { siteConfig } from "~/content/site.config";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getProfile } from "~/lib/api/endpoints/public";
+import { getProfileQuery } from "~/lib/api/public-queries";
+import { usePublicQueryResource } from "~/lib/api/use-public-query";
 import type { ProfileData } from "~/lib/api/types/portfolio.types";
 import { useSiteContent } from "~/lib/site-content";
 
-type ProfileResource = ReturnType<typeof useClientResource<ProfileData>>;
+type ProfileResource = ReturnType<typeof usePublicQueryResource<ProfileData>>;
 
 interface ProfileContextValue {
   resource: ProfileResource;
@@ -24,7 +24,7 @@ const ProfileContext = createContext<ProfileContextValue>();
 
 export function ProfileProvider(props: ParentProps) {
   const site = useSiteContent();
-  const resource = useClientResource(() => getProfile());
+  const resource = usePublicQueryResource(() => getProfileQuery());
 
   const data = () => resource.data();
 

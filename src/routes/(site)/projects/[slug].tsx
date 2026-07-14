@@ -4,15 +4,12 @@ import Seo from "~/components/Seo";
 import { Container, QueryState } from "~/components/ui";
 import ProjectDetail from "~/components/projects/ProjectDetail";
 import { siteConfig, truncateBio } from "~/content/site.config";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getProjectBySlug } from "~/lib/api/endpoints/public";
+import { getProjectBySlugQuery } from "~/lib/api/public-queries";
+import { usePublicQueryResource } from "~/lib/api/use-public-query";
 
 export default function ProjectDetailPage() {
   const params = useParams<{ slug: string }>();
-  const project = useClientResource(
-    () => getProjectBySlug(params.slug),
-    () => params.slug,
-  );
+  const project = usePublicQueryResource(() => getProjectBySlugQuery(params.slug));
 
   return (
     <>

@@ -4,12 +4,12 @@ import {
   type Accessor,
   type ParentProps,
 } from "solid-js";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getProjects } from "~/lib/api/endpoints/public";
+import { getProjectsQuery } from "~/lib/api/public-queries";
+import { usePublicQueryResource } from "~/lib/api/use-public-query";
 import type { Project } from "~/lib/api/types/portfolio.types";
 import { featuredProjects, sortProjects } from "~/lib/projects";
 
-type ProjectsResource = ReturnType<typeof useClientResource<Project[]>>;
+type ProjectsResource = ReturnType<typeof usePublicQueryResource<Project[]>>;
 
 interface ProjectsContextValue {
   resource: ProjectsResource;
@@ -20,7 +20,7 @@ interface ProjectsContextValue {
 const ProjectsContext = createContext<ProjectsContextValue>();
 
 export function ProjectsProvider(props: ParentProps) {
-  const resource = useClientResource(() => getProjects());
+  const resource = usePublicQueryResource(() => getProjectsQuery());
 
   const list = () => sortProjects(resource.data() ?? []);
 
