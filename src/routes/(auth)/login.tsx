@@ -1,4 +1,5 @@
 import { Title } from "@solidjs/meta";
+import { A, useSearchParams } from "@solidjs/router";
 import { createSignal, Show } from "solid-js";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/Input";
@@ -8,6 +9,7 @@ import { refreshAdminSession } from "~/lib/auth";
 import { loginSchema } from "~/schemas/login.schema";
 
 export default function LoginPage() {
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
   const [error, setError] = createSignal("");
@@ -61,6 +63,10 @@ export default function LoginPage() {
         <h1 class="mb-2 text-heading text-bf-text">Admin_Login</h1>
         <p class="mb-6 text-caption text-bf-text-muted">Sign in to manage portfolio content.</p>
 
+        <Show when={searchParams.registered === "1"}>
+          <p class="mb-4 text-body text-bf-accent">Admin account created. Sign in to continue.</p>
+        </Show>
+
         <form onSubmit={handleSubmit} class="space-y-4">
           <div>
             <label class="mb-1 block text-caption text-bf-text-muted" for="admin-email">
@@ -99,6 +105,12 @@ export default function LoginPage() {
             {loading() ? "Authenticating..." : "Login"}
           </Button>
         </form>
+
+        <p class="mt-6 text-center text-caption text-bf-text-muted">
+          <A href="/register" class="text-bf-accent hover:underline">
+            Register new admin
+          </A>
+        </p>
       </div>
     </div>
   );
