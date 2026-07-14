@@ -1,32 +1,27 @@
-# SolidStart
+# portfolio-lite-linux
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+Backend-First public portfolio frontend. Shares [`portfolio-api`](../portfolio-api) with the terminal site; admin CMS stays on [`portfolio-frontend`](../portfolio-frontend).
 
-## Creating a project
-
-```bash
-# create a new project in the current directory
-npm init solid@latest
-
-# create a new project in my-app
-npm init solid@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Dev
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+cp .env.example .env
+pnpm install
+pnpm dev
 ```
 
-## Building
+- App: http://localhost:4012  
+- API: http://localhost:4010 (`VITE_API_BASE_URL`)
 
-Solid apps are built with _presets_, which optimise your project for deployment to different environments.
+## Scripts
 
-By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different preset, add it to the `devDependencies` in `package.json` and specify in your `app.config.js`.
+| Command | Purpose |
+|---------|---------|
+| `pnpm dev` | Vite dev server (port 4012) |
+| `pnpm build` | Production build |
+| `pnpm typecheck` | `tsc --noEmit` |
 
-## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
+## Design
+
+Tokens and layout language: [`../docs/DESIGN_SYSTEM_V2.md`](../docs/DESIGN_SYSTEM_V2.md).  
+Visual QA mock: [`docs/reference/backend-first-mock.png`](docs/reference/backend-first-mock.png).

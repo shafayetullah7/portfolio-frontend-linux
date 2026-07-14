@@ -1,19 +1,11 @@
-import { Title } from "@solidjs/meta";
-import { HttpStatusCode } from "@solidjs/start";
-
 export default function NotFound() {
   return (
-    <main>
-      <Title>Not Found</Title>
-      <HttpStatusCode code={404} />
-      <h1>Page Not Found</h1>
-      <p>
-        Visit{" "}
-        <a href="https://start.solidjs.com" target="_blank">
-          start.solidjs.com
-        </a>{" "}
-        to learn how to build SolidStart apps.
-      </p>
+    <main class="flex min-h-screen flex-col items-center justify-center gap-2 bg-bf-bg text-bf-text">
+      <h1 class="text-heading">404</h1>
+      <p class="text-caption">Route not found.</p>
+      <a href="/" class="text-body text-bf-accent">
+        ./home
+      </a>
     </main>
   );
 }

@@ -1,39 +1,90 @@
-body {
-  font-family: Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+@import "tailwindcss";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme {
+  --color-bf-bg: #0a0a0a;
+  --color-bf-bg-elevated: #111111;
+  --color-bf-surface: #161616;
+  --color-bf-border: #2a2a2a;
+  --color-bf-border-strong: #3a3a3a;
+  --color-bf-text: #f5f5f5;
+  --color-bf-text-muted: #8a8a8a;
+  --color-bf-accent: #00ffa3;
+  --color-bf-accent-dim: color-mix(in srgb, #00ffa3 16%, transparent);
+  --color-bf-error: #ff5c5c;
+  --color-bf-warn: #f5a623;
+
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-a {
-  margin-right: 1rem;
-}
-
-main {
-  text-align: center;
-  padding: 1em;
-  margin: 0 auto;
-}
-
-h1 {
-  color: #335d92;
-  text-transform: uppercase;
-  font-size: 4rem;
-  font-weight: 100;
-  line-height: 1.1;
-  margin: 4rem auto;
-  max-width: 14rem;
-}
-
-p {
-  max-width: 14rem;
-  margin: 2rem auto;
-  line-height: 1.35;
-}
-
-@media (min-width: 480px) {
-  h1 {
-    max-width: none;
+@layer base {
+  html {
+    font-family: var(--font-mono);
+    font-variant-ligatures: none;
   }
+  body {
+    @apply bg-bf-bg text-bf-text antialiased;
+  }
+}
 
-  p {
-    max-width: none;
+@utility bf-grid-bg {
+  background-image: radial-gradient(var(--color-bf-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@utility text-display {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+@utility text-heading {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+
+@utility text-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@utility text-caption {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: var(--color-bf-text-muted);
+}
+
+@utility bf-cursor-blink {
+  animation: bf-blink 1s step-end infinite;
+}
+
+@utility bf-hero-enter {
+  animation: bf-hero-enter 400ms ease-out both;
+}
+
+@keyframes bf-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes bf-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bf-cursor-blink,
+  .bf-hero-enter {
+    animation: none;
   }
 }

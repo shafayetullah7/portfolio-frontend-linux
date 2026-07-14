@@ -1,0 +1,26 @@
+import { A } from "@solidjs/router";
+import { Container } from "~/components/ui";
+import { siteConfig } from "~/content/site.config";
+
+export default function SiteHeader() {
+  return (
+    <header class="border-b border-bf-border bg-bf-bg-elevated/80 backdrop-blur-sm">
+      <Container class="flex h-14 items-center justify-between gap-4">
+        <A href="/" class="text-body font-semibold text-bf-accent no-underline hover:opacity-90">
+          {siteConfig.brand}
+        </A>
+        <nav class="flex items-center gap-4">
+          <A href="/projects" class="text-caption text-bf-text-muted no-underline hover:text-bf-text">
+            ./projects
+          </A>
+          <A
+            href="/contact"
+            class="inline-flex h-9 items-center bg-bf-accent px-3 text-caption font-semibold text-bf-bg no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+          >
+            Contact.Me()
+          </A>
+        </nav>
+      </Container>
+    </header>
+  );
+}
