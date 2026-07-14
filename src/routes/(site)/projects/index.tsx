@@ -2,13 +2,11 @@ import Seo from "~/components/Seo";
 import { Container, QueryState, SectionHeader } from "~/components/ui";
 import ProjectGrid from "~/components/projects/ProjectGrid";
 import { siteConfig } from "~/content/site.config";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getProjects } from "~/lib/api/endpoints/public";
-import { sortProjects } from "~/lib/projects";
+import { useProjects } from "~/lib/projects-context";
 
 export default function ProjectsPage() {
-  const projects = useClientResource(() => getProjects());
-  const list = () => sortProjects(projects.data() ?? []);
+  const projects = useProjects();
+  const list = () => projects.list();
 
   return (
     <>
@@ -22,9 +20,13 @@ export default function ProjectsPage() {
           caption="All published systems from the portfolio API."
         />
         <QueryState
-          loading={projects.loading()}
-          error={projects.error()}
-          empty={!projects.loading() && !projects.error() && list().length === 0}
+          loading={projects.resource.loading()}
+          error={projects.resource.error()}
+          empty={
+            !projects.resource.loading() &&
+            !projects.resource.error() &&
+            list().length === 0
+          }
           emptyMessage="No published projects yet."
           loadingMessage="Loading projects…"
         >

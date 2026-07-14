@@ -3,6 +3,7 @@ import SiteFooter from "~/components/layout/SiteFooter";
 import SiteHeader from "~/components/layout/SiteHeader";
 import { ContactProvider } from "~/lib/contact";
 import { ProfileProvider } from "~/lib/profile";
+import { ProjectsProvider } from "~/lib/projects-context";
 import { SiteContentProvider } from "~/lib/site-content";
 
 export default function SiteLayout(props: RouteSectionProps) {
@@ -10,11 +11,13 @@ export default function SiteLayout(props: RouteSectionProps) {
     <SiteContentProvider>
       <ProfileProvider>
         <ContactProvider>
-          <div class="bf-grid-bg flex min-h-screen flex-col">
-            <SiteHeader />
-            <main class="flex-1">{props.children}</main>
-            <SiteFooter />
-          </div>
+          <ProjectsProvider>
+            <div class="bf-grid-bg flex min-h-screen flex-col">
+              <SiteHeader />
+              <main class="flex-1">{props.children}</main>
+              <SiteFooter />
+            </div>
+          </ProjectsProvider>
         </ContactProvider>
       </ProfileProvider>
     </SiteContentProvider>
