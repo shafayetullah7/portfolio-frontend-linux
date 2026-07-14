@@ -3,9 +3,9 @@ import { A } from "@solidjs/router";
 import { createSignal, For, Show } from "solid-js";
 import { Button, Container, Input, SectionHeader, Textarea } from "~/components/ui";
 import { platformLabel, siteConfig } from "~/content/site.config";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getContact, submitContact } from "~/lib/api/endpoints/public";
+import { submitContact } from "~/lib/api/endpoints/public";
 import { ApiError } from "~/lib/api/types";
+import { useContact } from "~/lib/contact";
 import { contactFormSchema } from "~/schemas/contact-form.schema";
 
 type Status =
@@ -14,7 +14,7 @@ type Status =
   | { kind: "error"; message: string };
 
 export default function ContactPage() {
-  const contact = useClientResource(() => getContact());
+  const contact = useContact();
 
   const [name, setName] = createSignal("");
   const [email, setEmail] = createSignal("");
@@ -86,23 +86,25 @@ export default function ContactPage() {
 
         <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
           <aside class="flex flex-col gap-4 text-body">
-            <Show when={contact.data()?.email}>
-              <p>
-                <span class="text-caption">Email</span>
-                <br />
-                <a
-                  href={`mailto:${contact.data()!.email}`}
-                  class="text-bf-accent no-underline hover:underline"
-                >
-                  {contact.data()!.email}
-                </a>
-              </p>
+            <Show when={contact.email()}>
+              {(addr) => (
+                <p>
+                  <span class="text-caption">Email</span>
+                  <br />
+                  <a
+                    href={`mailto:${addr()}`}
+                    class="text-bf-accent no-underline hover:underline"
+                  >
+                    {addr()}
+                  </a>
+                </p>
+              )}
             </Show>
-            <Show when={(contact.data()?.socialLinks?.length ?? 0) > 0}>
+            <Show when={contact.socialLinks().length > 0}>
               <div>
                 <span class="text-caption">Social</span>
                 <ul class="mt-2 flex flex-col gap-2">
-                  <For each={contact.data()!.socialLinks}>
+                  <For each={contact.socialLinks()}>
                     {(link) => (
                       <li>
                         <a

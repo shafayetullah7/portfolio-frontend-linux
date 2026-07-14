@@ -1,11 +1,11 @@
 import { createResource, createSignal, onMount } from "solid-js";
 
-export function useClientResource<T>(loader: () => Promise<T>) {
+export function useClientResource<T>(loader: () => Promise<T>, deps?: () => unknown) {
   const [active, setActive] = createSignal(false);
-  const [resource, { refetch }] = createResource(active, async (isActive) => {
-    if (!isActive) return undefined;
-    return loader();
-  });
+  const [resource, { refetch }] = createResource(
+    () => (active() ? (deps ? deps() : true) : false),
+    async () => loader(),
+  );
 
   onMount(() => setActive(true));
 

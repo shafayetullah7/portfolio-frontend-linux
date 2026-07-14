@@ -39,7 +39,9 @@ Edit content in **lite admin** (`/admin`):
 | Inbox | `/admin/inbox` |
 | Media | `/admin/media` |
 
-Marketing site content (brand, footer version, metrics, philosophy, architecture principles, diagram node labels) is loaded from `GET /api/v1/public/site-content`. Fallbacks and fixed SVG node ids live in [`src/content/site.config.ts`](src/content/site.config.ts) when the API is unreachable or returns empty lists. Metrics are **marketing copy**, not live telemetry.
+Marketing site content (brand, footer version, metrics, philosophy, architecture principles, diagram node labels) is loaded from `GET /api/v1/public/site-content`. Fallbacks and fixed SVG node ids live in [`src/content/site.config.ts`](src/content/site.config.ts) when the API is unreachable or returns empty lists. Metrics are **marketing samples** (labeled on the home strip), not live telemetry.
+
+Public home also shows **identity** (name, avatar, skills chips from profile/skills APIs) and **Experience_Log** from `/admin/experience` when entries exist (`/#experience`).
 
 Project screenshots:
 

@@ -1,16 +1,15 @@
 import Seo from "~/components/Seo";
 import FeaturedDeployments from "~/components/projects/FeaturedDeployments";
 import ClosingCta from "~/components/home/ClosingCta";
+import ExperienceLog from "~/components/home/ExperienceLog";
 import HeroSection from "~/components/hero/HeroSection";
 import MetricsStrip from "~/components/home/MetricsStrip";
 import SystemArchitecture from "~/components/home/SystemArchitecture";
 import TechPhilosophy from "~/components/home/TechPhilosophy";
 import { siteConfig, truncateBio } from "~/content/site.config";
 import { useProfile } from "~/lib/profile";
-import { useSiteContent } from "~/lib/site-content";
 
 export default function HomePage() {
-  const site = useSiteContent();
   const profile = useProfile();
   const description = () => {
     const raw = profile.bio();
@@ -25,8 +24,9 @@ export default function HomePage() {
         description={description()}
       />
       <HeroSection />
-      <MetricsStrip />
       <FeaturedDeployments />
+      <ExperienceLog />
+      <MetricsStrip />
       <SystemArchitecture />
       <TechPhilosophy />
       <ClosingCta />

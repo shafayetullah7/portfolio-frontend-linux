@@ -9,7 +9,10 @@ import { getProjectBySlug } from "~/lib/api/endpoints/public";
 
 export default function ProjectDetailPage() {
   const params = useParams<{ slug: string }>();
-  const project = useClientResource(() => getProjectBySlug(params.slug));
+  const project = useClientResource(
+    () => getProjectBySlug(params.slug),
+    () => params.slug,
+  );
 
   return (
     <>

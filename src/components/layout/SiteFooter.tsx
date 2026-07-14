@@ -1,16 +1,15 @@
 import { For, Show } from "solid-js";
 import { Container } from "~/components/ui";
 import { platformLabel, siteConfig } from "~/content/site.config";
-import { useClientResource } from "~/lib/api/client-resource";
-import { getContact } from "~/lib/api/endpoints/public";
+import { useContact } from "~/lib/contact";
 import { useProfile } from "~/lib/profile";
 import { useSiteContent } from "~/lib/site-content";
 
 export default function SiteFooter() {
   const site = useSiteContent();
   const profile = useProfile();
-  const contact = useClientResource(() => getContact());
-  const socials = () => contact.data()?.socialLinks ?? [];
+  const contact = useContact();
+  const socials = () => contact.socialLinks();
 
   return (
     <footer class="mt-auto border-t border-bf-border bg-bf-bg-elevated">
@@ -22,7 +21,13 @@ export default function SiteFooter() {
           </p>
         </div>
 
-        <Show when={!contact.loading() && !contact.error() && socials().length > 0}>
+        <Show
+          when={
+            !contact.resource.loading() &&
+            !contact.resource.error() &&
+            socials().length > 0
+          }
+        >
           <nav class="flex flex-wrap gap-4" aria-label="Social links">
             <For each={socials()}>
               {(link) => (
@@ -38,19 +43,6 @@ export default function SiteFooter() {
             </For>
           </nav>
         </Show>
-
-        <div class="text-caption">
-          <Show
-            when={!profile.resource.loading() && !profile.resource.error()}
-            fallback={
-              <Show when={profile.resource.error()} fallback={<span>API: …</span>}>
-                <span class="text-bf-error">API: unreachable</span>
-              </Show>
-            }
-          >
-            <span class="text-bf-accent">API: ok</span>
-          </Show>
-        </div>
       </Container>
     </footer>
   );

@@ -16,6 +16,12 @@ export default function SiteHeader() {
         </A>
         <nav class="flex items-center gap-4" aria-label="Primary">
           <A
+            href="/#experience"
+            class="text-caption text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+          >
+            ./experience
+          </A>
+          <A
             href="/projects"
             class="text-caption text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
           >

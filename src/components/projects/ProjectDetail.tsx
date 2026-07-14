@@ -33,11 +33,11 @@ export default function ProjectDetail(props: ProjectDetailProps) {
         </div>
       </div>
 
-      <div class="min-h-56 overflow-hidden border border-bf-border bg-bf-bg">
+      <div class="min-h-48 overflow-hidden border border-bf-border bg-bf-bg">
         <Show
           when={props.project.screenshotUrl}
           fallback={
-            <div class="bf-media-grid flex min-h-56 flex-col items-center justify-center gap-2">
+            <div class="bf-media-grid flex min-h-48 flex-col items-center justify-center gap-2">
               <span class="text-[2rem] font-bold tracking-widest text-bf-accent/80">{initials()}</span>
               <span class="text-caption uppercase tracking-[0.14em] text-bf-text-muted">
                 Upload a screenshot in admin media
@@ -48,7 +48,7 @@ export default function ProjectDetail(props: ProjectDetailProps) {
           <img
             src={props.project.screenshotUrl!}
             alt={props.project.title}
-            class="max-h-[28rem] w-full object-cover"
+            class="max-h-80 w-full object-cover"
           />
         </Show>
       </div>
