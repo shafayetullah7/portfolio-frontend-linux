@@ -12,7 +12,7 @@ export default function SiteFooter() {
   const socials = () => contact.socialLinks();
 
   return (
-    <footer class="mt-auto border-t border-bf-border bg-bf-bg-elevated">
+    <footer class="site-chrome mt-auto border-t border-bf-border bg-bf-bg-elevated">
       <Container class="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between">
         <div class="flex flex-col gap-1">
           <p class="text-caption">{site.footerVersion()}</p>

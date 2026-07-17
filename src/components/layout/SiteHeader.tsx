@@ -6,7 +6,7 @@ export default function SiteHeader() {
   const profile = useProfile();
 
   return (
-    <header class="border-b border-bf-border bg-bf-bg-elevated/90 backdrop-blur-sm">
+    <header class="site-chrome border-b border-bf-border bg-bf-bg-elevated/90 backdrop-blur-sm">
       <Container class="flex h-14 items-center justify-between gap-4">
         <A
           href="/"

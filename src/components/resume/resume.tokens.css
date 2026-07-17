@@ -1,0 +1,108 @@
+/**
+ * Resume document tokens (print-first white paper).
+ * Accent is paper-friendly slate-blue — not bf-accent mint.
+ */
+:root {
+  --resume-accent: #547690;
+  --resume-accent-soft: color-mix(in srgb, #547690 18%, transparent);
+  --resume-sidebar-bg: #eef1f4;
+  --resume-text: #1f2937;
+  --resume-text-muted: #6b7280;
+  --resume-border: #d1d5db;
+  --resume-page-bg: #ffffff;
+  --resume-font:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --resume-font-print: Georgia, "Times New Roman", Times, serif;
+  --resume-a4-width: 210mm;
+}
+
+.resume-doc {
+  font-family: var(--resume-font);
+  color: var(--resume-text);
+  background: var(--resume-page-bg);
+}
+
+.resume-doc__page {
+  width: 100%;
+  max-width: var(--resume-a4-width);
+  margin-inline: auto;
+  background: var(--resume-page-bg);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+}
+
+.resume-doc__split {
+  display: flex;
+  min-height: 297mm;
+}
+
+.resume-doc__sidebar {
+  width: 33.333%;
+  box-sizing: border-box;
+  padding: 1.25rem;
+  background: var(--resume-sidebar-bg);
+  border-right: 1px solid var(--resume-border);
+}
+
+.resume-doc__main {
+  width: 66.667%;
+  box-sizing: border-box;
+  padding: 1.25rem;
+}
+
+.resume-doc__name {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--resume-accent);
+}
+
+.resume-doc__title {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--resume-accent);
+}
+
+.resume-doc__placeholder {
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  color: var(--resume-text-muted);
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  .site-chrome,
+  .resume-spike-toolbar {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .bf-grid-bg {
+    background-image: none !important;
+  }
+
+  .resume-doc {
+    font-family: var(--resume-font-print);
+  }
+
+  .resume-doc__page {
+    max-width: none;
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .resume-doc__sidebar {
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
