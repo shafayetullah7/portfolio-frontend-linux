@@ -1,5 +1,6 @@
 import { query } from "@solidjs/router";
 import { publicGet } from "~/lib/api/api-client";
+import { fetchResumeDocument } from "~/lib/resume/fetch-resume-document";
 import type {
   ContactData,
   ExperienceEntry,
@@ -8,6 +9,7 @@ import type {
   SiteContentData,
   Skill,
 } from "~/lib/api/types/portfolio.types";
+import type { ResumeDocument } from "~/lib/api/types/resume.types";
 
 export const getSiteContentQuery = query(
   () => publicGet<SiteContentData>("/api/v1/public/site-content"),
@@ -37,6 +39,11 @@ export const getProjectsQuery = query(
 export const getContactQuery = query(
   () => publicGet<ContactData | null>("/api/v1/public/contact"),
   "contact",
+);
+
+export const getResumeQuery = query(
+  (): Promise<ResumeDocument> => fetchResumeDocument(),
+  "resume",
 );
 
 export const getProjectBySlugQuery = query(async (slug: string) => {

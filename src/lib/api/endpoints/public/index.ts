@@ -1,4 +1,5 @@
 import { fetcher, publicGet } from "../../api-client";
+import { fetchResumeDocument } from "~/lib/resume/fetch-resume-document";
 import type {
   ContactData,
   ExperienceEntry,
@@ -20,6 +21,8 @@ export const getExperience = () =>
 export const getContact = () => publicGet<ContactData | null>("/api/v1/public/contact");
 export const getSiteContent = () =>
   publicGet<SiteContentData>("/api/v1/public/site-content");
+
+export const getResume = () => fetchResumeDocument();
 
 export const submitContact = (body: {
   name: string;
