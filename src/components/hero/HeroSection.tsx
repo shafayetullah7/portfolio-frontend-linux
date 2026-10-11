@@ -60,7 +60,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div class="flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center">
           <A
             href="/contact"
             class="inline-flex h-11 items-center justify-center bg-bf-accent px-6 text-body font-semibold text-bf-bg no-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
@@ -72,6 +72,12 @@ export default function HeroSection() {
             class="inline-flex h-11 items-center justify-center border border-bf-accent px-6 text-body font-semibold text-bf-accent no-underline hover:bg-bf-accent-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
           >
             ./projects
+          </A>
+          <A
+            href="/resume"
+            class="inline-flex h-11 items-center justify-center border border-bf-accent px-6 text-body font-semibold text-bf-accent no-underline hover:bg-bf-accent-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+          >
+            {siteConfig.hero.resumeCtaLabel}
           </A>
         </div>
 

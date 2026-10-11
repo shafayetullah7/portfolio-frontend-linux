@@ -11,6 +11,7 @@ export const siteConfig = {
   },
   hero: {
     title: "Backend-First Engineering",
+    resumeCtaLabel: "View resume",
     support:
       "Designing resilient APIs, data pipelines, and infra that keep products fast under real load.",
     terminalFallback: {

@@ -100,6 +100,8 @@
   text-transform: uppercase;
   color: var(--resume-accent);
   border-bottom: 1px solid var(--resume-accent-soft);
+  break-after: avoid;
+  page-break-after: avoid;
 }
 
 .resume-contact-list {
@@ -241,6 +243,75 @@
   margin-top: 0.25rem;
 }
 
+.resume-preview-stage {
+  background: #d4d4d4;
+  padding: 2rem 0;
+}
+
+@media (min-width: 640px) {
+  .resume-preview-stage {
+    padding: 3rem 0;
+  }
+}
+
+.resume-preview-inner {
+  width: 100%;
+  max-width: var(--resume-a4-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+}
+
+.resume-page-skeleton__paper {
+  width: 100%;
+  max-width: var(--resume-a4-width);
+  margin-inline: auto;
+  min-height: 280mm;
+  background: var(--resume-page-bg);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.resume-page-skeleton__block {
+  height: 1rem;
+  margin-top: 0.75rem;
+  max-width: 12rem;
+  animation: resume-skeleton-pulse 1.5s ease-in-out infinite;
+  background: var(--resume-border);
+}
+
+.resume-page-skeleton__block--wide {
+  max-width: 16rem;
+  height: 1.25rem;
+  margin-top: 0;
+}
+
+@keyframes resume-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.resume-state-message {
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px solid var(--resume-border);
+  background: var(--resume-page-bg);
+  font-size: 0.9rem;
+  color: var(--resume-text-muted);
+  text-align: center;
+}
+
+.resume-state-message--error {
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
 @media print {
   @page {
     size: A4;
@@ -258,6 +329,18 @@
 
   .bf-grid-bg {
     background-image: none !important;
+    background-color: #fff !important;
+  }
+
+  .resume-preview-stage {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .resume-preview-inner {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .resume-doc {
