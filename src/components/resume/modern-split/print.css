@@ -1,5 +1,15 @@
 /* Modern Split print helpers (classic print rules stay in resume.tokens.css). */
 
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+.modern-split-doc {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
 @media print {
   .modern-split-doc {
     -webkit-print-color-adjust: exact;

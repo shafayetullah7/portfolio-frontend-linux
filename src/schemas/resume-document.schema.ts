@@ -66,10 +66,15 @@ export const resumeDocumentSchema = z.object({
       description: z.string(),
       technologies: z.array(z.string()),
       highlights: z.array(z.string()),
+      startDate: z.string().nullable().optional(),
+      endDate: z.string().nullable().optional(),
       links: z.array(
         z.object({
           label: z.string(),
-          url: z.string(),
+          liveUrl: z.string().nullable().optional(),
+          githubUrl: z.string().nullable().optional(),
+          /** Legacy flat link (Classic theme); Modern Split uses liveUrl/githubUrl. */
+          url: z.string().optional(),
         }),
       ),
     }),

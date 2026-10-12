@@ -9,10 +9,11 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "parity:verify-prod-route": "pnpm build && ! rg 'DevParityResumeView|full\\.builder\\.json|Jordan Kim' .output"
+    "parity:verify-prod-route": "pnpm build && ! grep -rqE 'DevParityResumeView|full\\.builder\\.json|Jordan Kim' .output"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "@fontsource/inter": "5.2.5",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.15.0",
     "@solidjs/start": "2.0.0-alpha.2",

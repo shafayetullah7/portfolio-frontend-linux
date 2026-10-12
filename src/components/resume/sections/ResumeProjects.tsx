@@ -1,5 +1,6 @@
 import { For, Show } from "solid-js";
 import { formatResumeLinkLabel } from "~/lib/resume/format-resume-link-label";
+import { classicProjectHrefLinks } from "~/lib/resume/project-link-rows";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
 import {
   ResumeSectionShell,
@@ -30,9 +31,9 @@ export function ResumeProjects(props: ResumeProjectsProps) {
                 </For>
               </ul>
             </Show>
-            <Show when={project.links.length > 0}>
+            <Show when={classicProjectHrefLinks(project.links).length > 0}>
               <ul class="resume-project-links">
-                <For each={project.links}>
+                <For each={classicProjectHrefLinks(project.links)}>
                   {(link) => (
                     <li>
                       <a

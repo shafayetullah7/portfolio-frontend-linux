@@ -12,6 +12,11 @@ export function useA4PageZoom(getContainer: () => HTMLElement | undefined) {
       const container = getContainer();
       if (!container) return;
 
+      if (typeof window !== "undefined" && window.location.search.includes("parityFixture=")) {
+        setPageZoom(1);
+        return;
+      }
+
       const available = container.clientWidth - HORIZONTAL_PADDING_PX;
       const probe = document.createElement("div");
       probe.style.width = `${A4_WIDTH_MM}mm`;

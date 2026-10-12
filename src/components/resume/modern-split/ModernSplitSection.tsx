@@ -20,9 +20,9 @@ export function ModernSplitSection(props: ModernSplitSectionProps) {
 
   return (
     <section class={`${props.tokens.sectionGap} break-inside-avoid`}>
-      <h3 class={headerClass()} style={sectionHeaderStyle(props.tokens)}>
+      <h2 class={headerClass()} style={sectionHeaderStyle(props.tokens)}>
         {props.label}
-      </h3>
+      </h2>
       {props.children}
     </section>
   );
