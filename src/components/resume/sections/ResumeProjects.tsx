@@ -1,4 +1,5 @@
 import { For, Show } from "solid-js";
+import { formatResumeLinkLabel } from "~/lib/resume/format-resume-link-label";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
 import { ResumeSectionHeading } from "./ResumeSectionHeading";
 
@@ -37,8 +38,9 @@ export function ResumeProjects(props: ResumeProjectsProps) {
                         href={link.url}
                         rel="noopener noreferrer"
                         target="_blank"
+                        title={link.url}
                       >
-                        {link.label}
+                        {formatResumeLinkLabel(link.label, link.url)}
                       </a>
                     </li>
                   )}

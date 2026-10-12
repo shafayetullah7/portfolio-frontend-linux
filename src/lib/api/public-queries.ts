@@ -2,8 +2,12 @@ import { query } from "@solidjs/router";
 import { publicGet } from "~/lib/api/api-client";
 import { fetchResumeDocument } from "~/lib/resume/fetch-resume-document";
 import type {
+  CertificationEntry,
   ContactData,
+  EducationEntry,
   ExperienceEntry,
+  InterestEntry,
+  LanguageEntry,
   ProfileData,
   Project,
   SiteContentData,
@@ -39,6 +43,26 @@ export const getProjectsQuery = query(
 export const getContactQuery = query(
   () => publicGet<ContactData | null>("/api/v1/public/contact"),
   "contact",
+);
+
+export const getEducationQuery = query(
+  () => publicGet<EducationEntry[]>("/api/v1/public/education"),
+  "education",
+);
+
+export const getCertificationsQuery = query(
+  () => publicGet<CertificationEntry[]>("/api/v1/public/certifications"),
+  "certifications",
+);
+
+export const getLanguagesQuery = query(
+  () => publicGet<LanguageEntry[]>("/api/v1/public/languages"),
+  "languages",
+);
+
+export const getInterestsQuery = query(
+  () => publicGet<InterestEntry[]>("/api/v1/public/interests"),
+  "interests",
 );
 
 export const getResumeQuery = query(

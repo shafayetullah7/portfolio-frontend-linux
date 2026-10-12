@@ -1,5 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { createEffect, createResource, createSignal, For, Show } from "solid-js";
+import AdminFieldHint from "~/components/admin/AdminFieldHint";
+import AdminFormSection from "~/components/admin/AdminFormSection";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/Input";
 import QueryState from "~/components/ui/QueryState";
@@ -15,6 +17,8 @@ export default function AdminContactPage() {
   const [refresh, setRefresh] = createSignal(0);
   const [contact] = createResource(refresh, () => adminApi.getContact());
   const [email, setEmail] = createSignal("");
+  const [phone, setPhone] = createSignal("");
+  const [location, setLocation] = createSignal("");
   const [gpgKey, setGpgKey] = createSignal("");
   const [socialLinks, setSocialLinks] = createSignal<SocialLink[]>([]);
   const [saving, setSaving] = createSignal(false);
@@ -27,6 +31,8 @@ export default function AdminContactPage() {
     const c = contact();
     if (!c) return;
     setEmail(c.email);
+    setPhone(c.phone ?? "");
+    setLocation(c.location ?? "");
     setGpgKey(c.gpgKey ?? "");
     setSocialLinks(c.socialLinks?.map((l) => ({ platform: l.platform, url: l.url })) ?? []);
   });
@@ -37,6 +43,8 @@ export default function AdminContactPage() {
     try {
       await adminApi.updateContact({
         email: email(),
+        phone: phone().trim() || null,
+        location: location().trim() || null,
         gpgKey: gpgKey() || null,
         socialLinks: socialLinks(),
       });
@@ -70,17 +78,42 @@ export default function AdminContactPage() {
         error={contact.error}
         loadingMessage="Loading contact..."
       >
-        <div class="max-w-xl space-y-4">
-          <div>
-            <label class="mb-1 block text-caption text-bf-text-muted" for="contact-email">
-              Email
-            </label>
-            <Input
-              id="contact-email"
-              value={email()}
-              onInput={(e) => setEmail(e.currentTarget.value)}
-            />
-          </div>
+        <div class="max-w-xl space-y-6">
+          <AdminFormSection title="Contact facts">
+            <AdminFieldHint variant="fact" />
+            <div>
+              <label class="mb-1 block text-caption text-bf-text-muted" for="contact-email">
+                Email
+              </label>
+              <Input
+                id="contact-email"
+                value={email()}
+                onInput={(e) => setEmail(e.currentTarget.value)}
+              />
+            </div>
+            <div>
+              <label class="mb-1 block text-caption text-bf-text-muted" for="contact-phone">
+                Phone
+              </label>
+              <Input
+                id="contact-phone"
+                maxLength={40}
+                value={phone()}
+                onInput={(e) => setPhone(e.currentTarget.value)}
+              />
+            </div>
+            <div>
+              <label class="mb-1 block text-caption text-bf-text-muted" for="contact-location">
+                Location
+              </label>
+              <Input
+                id="contact-location"
+                maxLength={200}
+                value={location()}
+                onInput={(e) => setLocation(e.currentTarget.value)}
+              />
+            </div>
+          </AdminFormSection>
           <div>
             <label class="mb-1 block text-caption text-bf-text-muted" for="contact-gpg">
               GPG Key

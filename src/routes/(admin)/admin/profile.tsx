@@ -1,5 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { createEffect, createResource, createSignal, Show } from "solid-js";
+import AdminFieldHint from "~/components/admin/AdminFieldHint";
+import AdminFormSection from "~/components/admin/AdminFormSection";
 import MediaPicker from "~/components/admin/MediaPicker";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/Input";
@@ -15,6 +17,8 @@ export default function AdminProfilePage() {
   const [name, setName] = createSignal("");
   const [headline, setHeadline] = createSignal("");
   const [bio, setBio] = createSignal("");
+  const [resumeTitle, setResumeTitle] = createSignal("");
+  const [resumeSummary, setResumeSummary] = createSignal("");
   const [os, setOs] = createSignal("");
   const [kernel, setKernel] = createSignal("");
   const [shell, setShell] = createSignal("");
@@ -32,6 +36,8 @@ export default function AdminProfilePage() {
     setName(d.profile?.name ?? "");
     setHeadline(d.profile?.headline ?? "");
     setBio(d.profile?.bio ?? "");
+    setResumeTitle(d.profile?.resumeTitle ?? "");
+    setResumeSummary(d.profile?.resumeSummary ?? "");
     setOs(d.systemInfo?.os ?? "");
     setKernel(d.systemInfo?.kernel ?? "");
     setShell(d.systemInfo?.shell ?? "");
@@ -47,6 +53,8 @@ export default function AdminProfilePage() {
         name: name(),
         headline: headline(),
         bio: bio(),
+        resumeTitle: resumeTitle().trim() || null,
+        resumeSummary: resumeSummary().trim() || null,
         avatarMediaId: avatarMediaId(),
       });
       await adminApi.updateSystemInfo({
@@ -85,8 +93,8 @@ export default function AdminProfilePage() {
         emptyMessage="Profile not found."
       >
         <div class="max-w-xl space-y-6">
-          <section class="space-y-3">
-            <h2 class="text-caption text-bf-accent">Identity</h2>
+          <AdminFormSection title="Site content">
+            <AdminFieldHint variant="site" />
             <MediaPicker
               label="Avatar"
               value={avatarMediaId()}
@@ -112,7 +120,7 @@ export default function AdminProfilePage() {
             </div>
             <div>
               <label class="mb-1 block text-caption text-bf-text-muted" for="profile-bio">
-                Bio
+                Bio (About)
               </label>
               <Textarea
                 id="profile-bio"
@@ -121,7 +129,39 @@ export default function AdminProfilePage() {
                 onInput={(e) => setBio(e.currentTarget.value)}
               />
             </div>
-          </section>
+          </AdminFormSection>
+
+          <AdminFormSection title="Resume (print)">
+            <AdminFieldHint variant="resume" />
+            <div>
+              <label class="mb-1 block text-caption text-bf-text-muted" for="profile-resume-title">
+                Resume job title (optional)
+              </label>
+              <Input
+                id="profile-resume-title"
+                maxLength={255}
+                value={resumeTitle()}
+                onInput={(e) => setResumeTitle(e.currentTarget.value)}
+              />
+              <p class="mt-1 text-caption text-bf-text-muted">
+                Used on the PDF instead of headline when set. Not shown in the hero.
+              </p>
+            </div>
+            <div>
+              <label class="mb-1 block text-caption text-bf-text-muted" for="profile-resume-summary">
+                Resume summary
+              </label>
+              <Textarea
+                id="profile-resume-summary"
+                rows={5}
+                value={resumeSummary()}
+                onInput={(e) => setResumeSummary(e.currentTarget.value)}
+              />
+              <p class="mt-1 text-caption text-bf-text-muted">
+                Target ~3–5 lines (about 400–600 characters). Not the same as site bio.
+              </p>
+            </div>
+          </AdminFormSection>
 
           <section class="space-y-3">
             <h2 class="text-caption text-bf-accent">System_Info</h2>

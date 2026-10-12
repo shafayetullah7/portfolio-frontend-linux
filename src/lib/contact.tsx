@@ -13,6 +13,8 @@ type ContactResource = ReturnType<typeof usePublicQueryResource<ContactData | nu
 interface ContactContextValue {
   resource: ContactResource;
   email: Accessor<string | null>;
+  phone: Accessor<string | null>;
+  location: Accessor<string | null>;
   gpgKey: Accessor<string | null>;
   socialLinks: Accessor<ContactData["socialLinks"]>;
 }
@@ -25,12 +27,16 @@ export function ContactProvider(props: ParentProps) {
   const data = () => resource.data();
 
   const email = () => data()?.email?.trim() || null;
+  const phone = () => data()?.phone?.trim() || null;
+  const location = () => data()?.location?.trim() || null;
   const gpgKey = () => data()?.gpgKey?.trim() || null;
   const socialLinks = () => data()?.socialLinks ?? [];
 
   const value: ContactContextValue = {
     resource,
     email,
+    phone,
+    location,
     gpgKey,
     socialLinks,
   };

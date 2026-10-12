@@ -1,17 +1,21 @@
 import { fetcher, type FetchOptions } from "../../api-client";
 import type {
-  ProfileData,
-  Project,
-  Skill,
-  ExperienceEntry,
+  CertificationEntry,
   ContactData,
   DashboardStats,
+  EducationEntry,
+  ExperienceEntry,
+  InterestEntry,
+  LanguageEntry,
   MediaItem,
+  ProfileData,
+  Project,
   SiteArchitecturePrinciple,
   SiteContentData,
   SiteMetric,
   SitePhilosophy,
   SiteSettings,
+  Skill,
 } from "../../types/portfolio.types";
 
 const admin = (path: string, init?: FetchOptions) =>
@@ -105,4 +109,29 @@ export const adminApi = {
     }) as Promise<SiteArchitecturePrinciple>,
   deleteSiteArchitecturePrinciple: (id: string) =>
     admin(`/site/architecture-principles/${id}`, { method: "DELETE" }),
+  listEducation: () => admin("/education") as Promise<EducationEntry[]>,
+  createEducation: (body: unknown) =>
+    admin("/education", { method: "POST", body: JSON.stringify(body) }),
+  updateEducation: (id: string, body: unknown) =>
+    admin(`/education/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
+  deleteEducation: (id: string) => admin(`/education/${id}`, { method: "DELETE" }),
+  listCertifications: () => admin("/certifications") as Promise<CertificationEntry[]>,
+  createCertification: (body: unknown) =>
+    admin("/certifications", { method: "POST", body: JSON.stringify(body) }),
+  updateCertification: (id: string, body: unknown) =>
+    admin(`/certifications/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
+  deleteCertification: (id: string) =>
+    admin(`/certifications/${id}`, { method: "DELETE" }),
+  listLanguages: () => admin("/languages") as Promise<LanguageEntry[]>,
+  createLanguage: (body: unknown) =>
+    admin("/languages", { method: "POST", body: JSON.stringify(body) }),
+  updateLanguage: (id: string, body: unknown) =>
+    admin(`/languages/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
+  deleteLanguage: (id: string) => admin(`/languages/${id}`, { method: "DELETE" }),
+  listInterests: () => admin("/interests") as Promise<InterestEntry[]>,
+  createInterest: (body: unknown) =>
+    admin("/interests", { method: "POST", body: JSON.stringify(body) }),
+  updateInterest: (id: string, body: unknown) =>
+    admin(`/interests/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
+  deleteInterest: (id: string) => admin(`/interests/${id}`, { method: "DELETE" }),
 };

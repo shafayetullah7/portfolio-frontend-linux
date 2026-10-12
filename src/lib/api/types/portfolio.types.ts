@@ -3,6 +3,8 @@ export interface ProfileData {
     name: string;
     headline: string;
     bio: string;
+    resumeSummary?: string | null;
+    resumeTitle?: string | null;
     avatarMediaId?: string | null;
   } | null;
   systemInfo: {
@@ -29,6 +31,10 @@ export interface Project {
   screenshotMediaId?: string | null;
   published?: boolean;
   sortOrder?: number;
+  includeOnResume?: boolean;
+  resumeSortOrder?: number;
+  resumeDescription?: string | null;
+  resumeHighlights?: string[] | null;
   createdAt?: string;
   updatedAt?: string;
   features: { id: string; content: string; sortOrder: number }[];
@@ -49,24 +55,66 @@ export interface Skill {
   category: string;
   level: number;
   sortOrder: number;
+  includeOnResume?: boolean;
 }
 
 export interface ExperienceEntry {
   id: string;
   company: string;
   role: string;
+  location?: string | null;
   startDate: string;
   endDate?: string | null;
   level: "INFO" | "WARN";
   sortOrder?: number;
+  includeOnResume?: boolean;
+  resumeBullets?: string[] | null;
   responsibilities: { id: string; content: string }[];
   techTags: { id: string; tag: string }[];
 }
 
 export interface ContactData {
   email: string;
+  phone?: string | null;
+  location?: string | null;
   gpgKey?: string | null;
   socialLinks: { id: string; platform: string; url: string }[];
+}
+
+export interface EducationEntry {
+  id: string;
+  institution: string;
+  degree: string;
+  startDate: string | null;
+  endDate: string | null;
+  description: string | null;
+  sortOrder: number;
+  includeOnResume?: boolean;
+}
+
+export interface CertificationEntry {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string | null;
+  url: string | null;
+  sortOrder: number;
+  includeOnResume?: boolean;
+}
+
+export interface LanguageEntry {
+  id: string;
+  name: string;
+  level: string;
+  sortOrder: number;
+  includeOnResume?: boolean;
+}
+
+export interface InterestEntry {
+  id: string;
+  name: string;
+  sortOrder: number;
+  includeOnResume?: boolean;
 }
 
 export interface AdminUser {

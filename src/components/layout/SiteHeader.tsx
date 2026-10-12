@@ -22,6 +22,18 @@ export default function SiteHeader() {
             ./experience
           </A>
           <A
+            href="/#education"
+            class="text-caption text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+          >
+            ./education
+          </A>
+          <A
+            href="/#credentials"
+            class="text-caption text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+          >
+            ./credentials
+          </A>
+          <A
             href="/projects"
             class="text-caption text-bf-text-muted no-underline hover:text-bf-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
           >

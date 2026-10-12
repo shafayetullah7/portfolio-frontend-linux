@@ -5,11 +5,13 @@ import { Container, Tag } from "~/components/ui";
 import { siteConfig, truncateBio } from "~/content/site.config";
 import { getSkillsQuery } from "~/lib/api/public-queries";
 import { usePublicQueryResource } from "~/lib/api/use-public-query";
+import { useContact } from "~/lib/contact";
 import { useProfile } from "~/lib/profile";
 import { groupSkillsByCategory } from "~/lib/skills-json";
 
 export default function HeroSection() {
   const profile = useProfile();
+  const contact = useContact();
   const skills = usePublicQueryResource(() => getSkillsQuery());
 
   const whoamiLine = () => {
@@ -17,7 +19,9 @@ export default function HeroSection() {
       return fallbackWhoami();
     }
     const headline = profile.headline();
-    return headline ? `${profile.name()} — ${headline}` : profile.name();
+    const place = contact.location()?.trim();
+    const identity = headline ? `${profile.name()} — ${headline}` : profile.name();
+    return place ? `${identity} @ ${place}` : identity;
   };
 
   const skillsByCategory = () => {
@@ -56,6 +60,11 @@ export default function HeroSection() {
               </span>
             </h1>
             <p class="text-body text-bf-text-muted">{profile.headline()}</p>
+            <Show when={contact.location()}>
+              {(place) => (
+                <p class="text-caption text-bf-text-muted">{place()}</p>
+              )}
+            </Show>
             <p class="max-w-2xl text-body text-bf-text-muted">{bioDisplay()}</p>
           </div>
         </div>

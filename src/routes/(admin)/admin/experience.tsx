@@ -1,5 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { createResource, createSignal, For, Show } from "solid-js";
+import AdminFieldHint from "~/components/admin/AdminFieldHint";
+import AdminFormSection from "~/components/admin/AdminFormSection";
 import FeatureListEditor from "~/components/admin/projects/FeatureListEditor";
 import Button from "~/components/ui/Button";
 import ConfirmDialog from "~/components/ui/ConfirmDialog";
@@ -24,12 +26,15 @@ export default function AdminExperiencePage() {
   const emptyForm = () => ({
     company: "",
     role: "",
+    location: "",
     startDate: "2024-01-01",
     endDate: "",
     level: "INFO" as "INFO" | "WARN",
     sortOrder: 0,
+    includeOnResume: true,
     responsibilities: [] as string[],
     techTags: [] as string[],
+    resumeBullets: [] as string[],
   });
 
   const [form, setForm] = createSignal(emptyForm());
@@ -50,12 +55,15 @@ export default function AdminExperiencePage() {
     setForm({
       company: e.company,
       role: e.role,
+      location: e.location ?? "",
       startDate: e.startDate.slice(0, 10),
       endDate: e.endDate ? e.endDate.slice(0, 10) : "",
       level: e.level,
       sortOrder: e.sortOrder ?? 0,
+      includeOnResume: e.includeOnResume ?? true,
       responsibilities: e.responsibilities?.map((r) => r.content) ?? [],
       techTags: e.techTags?.map((t) => t.tag) ?? [],
+      resumeBullets: e.resumeBullets ?? [],
     });
     setError("");
     setEditing(e);
@@ -69,12 +77,17 @@ export default function AdminExperiencePage() {
     const body = {
       company: f.company,
       role: f.role,
+      location: f.location.trim() || null,
       startDate: f.startDate,
       endDate: f.endDate || null,
       level: f.level,
       sortOrder: f.sortOrder,
+      includeOnResume: f.includeOnResume,
       responsibilities: f.responsibilities.filter(Boolean),
       techTags: f.techTags.filter(Boolean),
+      resumeBullets: f.resumeBullets.filter(Boolean).length
+        ? f.resumeBullets.filter(Boolean)
+        : null,
     };
     setError("");
     try {
@@ -178,7 +191,9 @@ export default function AdminExperiencePage() {
         onClose={closeModal}
         title={editing() ? "Edit experience" : "Create experience"}
       >
-        <div class="max-h-[60vh] space-y-3 overflow-y-auto pr-2">
+        <div class="max-h-[60vh] space-y-4 overflow-y-auto pr-2">
+          <AdminFormSection title="Site content">
+            <AdminFieldHint variant="site" />
           <div>
             <label class="mb-1 block text-caption text-bf-text-muted" for="exp-company">
               Company
@@ -197,6 +212,18 @@ export default function AdminExperiencePage() {
               id="exp-role"
               value={form().role}
               onInput={(e) => set({ role: e.currentTarget.value })}
+            />
+          </div>
+          <div>
+            <label class="mb-1 block text-caption text-bf-text-muted" for="exp-location">
+              Location
+            </label>
+            <AdminFieldHint variant="fact" class="mb-1" />
+            <Input
+              id="exp-location"
+              maxLength={200}
+              value={form().location}
+              onInput={(e) => set({ location: e.currentTarget.value })}
             />
           </div>
           <div>
@@ -258,6 +285,31 @@ export default function AdminExperiencePage() {
             onChange={(techTags) => set({ techTags })}
             placeholder="tag"
           />
+          </AdminFormSection>
+
+          <AdminFormSection title="Resume (print)">
+            <AdminFieldHint variant="resume" />
+            <label class="flex items-center gap-2 text-body text-bf-text" for="exp-include-resume">
+              <input
+                id="exp-include-resume"
+                type="checkbox"
+                class="accent-[var(--color-bf-accent)]"
+                checked={form().includeOnResume}
+                onChange={(e) => set({ includeOnResume: e.currentTarget.checked })}
+              />
+              Include on resume PDF
+            </label>
+            <AdminFieldHint variant="fact" class="mb-1">
+              When off, role stays on the site timeline but is omitted from the PDF.
+            </AdminFieldHint>
+            <FeatureListEditor
+              label="Resume bullets (optional)"
+              items={form().resumeBullets}
+              onChange={(resumeBullets) => set({ resumeBullets })}
+              placeholder="Short bullet for PDF"
+            />
+          </AdminFormSection>
+
           <Show when={error()}>
             {(msg) => <p class="text-body text-bf-error">{msg()}</p>}
           </Show>

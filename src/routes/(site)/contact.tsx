@@ -100,6 +100,29 @@ export default function ContactPage() {
                 </p>
               )}
             </Show>
+            <Show when={contact.phone()}>
+              {(num) => (
+                <p>
+                  <span class="text-caption">Phone</span>
+                  <br />
+                  <a
+                    href={`tel:${num()}`}
+                    class="text-bf-accent no-underline hover:underline"
+                  >
+                    {num()}
+                  </a>
+                </p>
+              )}
+            </Show>
+            <Show when={contact.location()}>
+              {(place) => (
+                <p>
+                  <span class="text-caption">Location</span>
+                  <br />
+                  <span class="text-bf-text-muted">{place()}</span>
+                </p>
+              )}
+            </Show>
             <Show when={contact.socialLinks().length > 0}>
               <div>
                 <span class="text-caption">Social</span>

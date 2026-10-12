@@ -1,5 +1,6 @@
 import { Title } from "@solidjs/meta";
 import { createResource, createSignal, For, Show } from "solid-js";
+import AdminFieldHint from "~/components/admin/AdminFieldHint";
 import Button from "~/components/ui/Button";
 import ConfirmDialog from "~/components/ui/ConfirmDialog";
 import Input from "~/components/ui/Input";
@@ -23,6 +24,7 @@ export default function AdminSkillsPage() {
   const [category, setCategory] = createSignal("");
   const [level, setLevel] = createSignal(50);
   const [sortOrder, setSortOrder] = createSignal(0);
+  const [includeOnResume, setIncludeOnResume] = createSignal(true);
 
   const closeModal = () => {
     setCreating(false);
@@ -35,6 +37,7 @@ export default function AdminSkillsPage() {
     setCategory("");
     setLevel(50);
     setSortOrder(skills()?.length ?? 0);
+    setIncludeOnResume(true);
     setError("");
     setCreating(true);
   };
@@ -44,12 +47,19 @@ export default function AdminSkillsPage() {
     setCategory(s.category);
     setLevel(s.level);
     setSortOrder(s.sortOrder);
+    setIncludeOnResume(s.includeOnResume ?? true);
     setError("");
     setEditing(s);
   };
 
   const save = async () => {
-    const body = { name: name(), category: category(), level: level(), sortOrder: sortOrder() };
+    const body = {
+      name: name(),
+      category: category(),
+      level: level(),
+      sortOrder: sortOrder(),
+      includeOnResume: includeOnResume(),
+    };
     setError("");
     try {
       if (editing()) {
@@ -185,6 +195,17 @@ export default function AdminSkillsPage() {
               onInput={(e) => setSortOrder(Number(e.currentTarget.value))}
             />
           </div>
+          <AdminFieldHint variant="fact" class="mb-1" />
+          <label class="flex items-center gap-2 text-body text-bf-text" for="skill-include-resume">
+            <input
+              id="skill-include-resume"
+              type="checkbox"
+              class="accent-[var(--color-bf-accent)]"
+              checked={includeOnResume()}
+              onChange={(e) => setIncludeOnResume(e.currentTarget.checked)}
+            />
+            Include on resume PDF
+          </label>
           <Show when={error()}>
             {(msg) => <p class="text-body text-bf-error">{msg()}</p>}
           </Show>

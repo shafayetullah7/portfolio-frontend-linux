@@ -35,13 +35,16 @@ Edit content in **lite admin** (`/admin`):
 | Projects | `/admin/projects` |
 | Skills | `/admin/skills` |
 | Experience | `/admin/experience` |
+| Education | `/admin/education` |
+| Credentials (certs, languages, interests) | `/admin/credentials` |
+| Resume readiness + preview | `/admin/resume` (Modern + Classic preview links) |
 | Contact | `/admin/contact` |
 | Inbox | `/admin/inbox` |
 | Media | `/admin/media` |
 
 Marketing site content (brand, footer version, metrics, philosophy, architecture principles, diagram node labels) is loaded from `GET /api/v1/public/site-content`. Fallbacks and fixed SVG node ids live in [`src/content/site.config.ts`](src/content/site.config.ts) when the API is unreachable or returns empty lists. Metrics are **marketing samples** (labeled on the home strip), not live telemetry.
 
-Public home also shows **identity** (name, avatar, skills chips from profile/skills APIs) and **Experience_Log** from `/admin/experience` when entries exist (`/#experience`).
+Public home shows **identity** (name, avatar, optional location from contact API, skills chips), **Experience_Log** (`/#experience`), **Education_Log** (`/#education`), and **Credentials** (certs, languages, interests at `/#credentials`) when the API returns rows. **Contact** page shows email, phone (`tel:`), location, and social links from `GET /api/v1/public/contact`.
 
 Project screenshots:
 
@@ -50,6 +53,12 @@ Project screenshots:
 3. Publish the project
 
 Fresh DB demo data: `cd portfolio-api && pnpm db:setup` (portfolio seed skips if a profile exists; site content still seeds if `site_settings` is empty). Use `docker compose down -v` then setup to fully re-seed.
+
+## Resume (public)
+
+- **Modern Split (default):** `/resume` — print/save PDF from the browser; `noindex` (not for SEO).
+- **Classic (single column):** `/resume?theme=classic` — companion layout for parsers; not an ATS guarantee.
+- Owner writing guide: [`../docs/RESUME_CONTENT_GUIDE.md`](../docs/RESUME_CONTENT_GUIDE.md).
 
 ## Design
 

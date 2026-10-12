@@ -130,6 +130,28 @@
   color: var(--resume-accent);
 }
 
+.resume-link:focus-visible {
+  outline: 2px solid var(--resume-accent);
+  outline-offset: 2px;
+}
+
+/* Classic theme: single column, minimal chrome */
+.resume-doc--classic .resume-doc__page {
+  padding: 1.25rem;
+}
+
+.resume-doc--classic .resume-doc__split {
+  display: block;
+}
+
+.resume-doc--classic .resume-section {
+  margin-top: 0.85rem;
+}
+
+.resume-doc--classic .resume-entry {
+  margin-top: 0.65rem;
+}
+
 .resume-summary {
   margin: 0;
   font-size: 0.85rem;
@@ -374,5 +396,19 @@
   .resume-entry {
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+
+  .resume-section {
+    margin-top: 0.75rem;
+  }
+
+  .resume-doc--classic .resume-doc__split,
+  .resume-doc--classic .resume-doc__sidebar,
+  .resume-doc--classic .resume-doc__main {
+    display: block;
+    width: 100%;
+    border: none;
+    background: #fff !important;
+    padding: 0;
   }
 }

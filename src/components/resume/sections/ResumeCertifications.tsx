@@ -1,5 +1,6 @@
 import { For, Show } from "solid-js";
 import { formatResumeCertDate } from "~/lib/resume/format-resume-date";
+import { formatResumeLinkLabel } from "~/lib/resume/format-resume-link-label";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
 import { ResumeSectionHeading } from "./ResumeSectionHeading";
 
@@ -32,8 +33,9 @@ export function ResumeCertifications(props: ResumeCertificationsProps) {
                   href={cert.url!}
                   rel="noopener noreferrer"
                   target="_blank"
+                  title={cert.url!}
                 >
-                  View credential
+                  {formatResumeLinkLabel("Credential", cert.url!)}
                 </a>
               </Show>
             </article>

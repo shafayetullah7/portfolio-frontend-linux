@@ -1,5 +1,7 @@
 import { Meta, Title } from "@solidjs/meta";
+import { A, useSearchParams } from "@solidjs/router";
 import { Show } from "solid-js";
+import ClassicResume from "~/components/resume/ClassicResume";
 import ModernSplitResume from "~/components/resume/ModernSplitResume";
 import { Container } from "~/components/ui";
 import { getResumeQuery } from "~/lib/api/public-queries";
@@ -8,6 +10,13 @@ import { formatResumeDocumentTitle } from "~/lib/resume/resume-document-title";
 import { resumeErrorMessage } from "~/lib/resume/resume-error-message";
 import { hasResumeIdentity } from "~/lib/resume/resume-visibility";
 import { useResumeDocumentTitle } from "~/lib/resume/use-resume-document-title";
+
+export type ResumeTheme = "modern" | "classic";
+
+function parseResumeTheme(raw: string | string[] | undefined): ResumeTheme {
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return value === "classic" ? "classic" : "modern";
+}
 
 function ResumePageSkeleton() {
   return (
@@ -22,6 +31,9 @@ function ResumePageSkeleton() {
 }
 
 export default function ResumePage() {
+  const [searchParams] = useSearchParams();
+  const theme = () => parseResumeTheme(searchParams.theme);
+
   const resume = usePublicQueryResource(() => getResumeQuery());
 
   const doc = () => resume.data();
@@ -50,6 +62,13 @@ export default function ResumePage() {
     window.print();
   };
 
+  const themeLinkClass = (t: ResumeTheme) =>
+    `inline-flex h-9 items-center justify-center border px-4 text-caption font-semibold no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50 ${
+      theme() === t
+        ? "border-bf-accent bg-bf-accent-dim text-bf-accent"
+        : "border-bf-border text-bf-text-muted hover:text-bf-text"
+    }`;
+
   return (
     <>
       <Title>{titleForDoc()}</Title>
@@ -57,23 +76,34 @@ export default function ResumePage() {
       <Meta name="description" content="Printable resume view (noindex)." />
 
       <div class="border-b border-bf-border bg-bf-bg-elevated resume-toolbar">
-        <Container class="flex flex-wrap items-center justify-between gap-3 py-3">
-          <p class="text-caption text-bf-text-muted">
-            Modern Split resume — open print or save as PDF from your browser.
-          </p>
-          <Show when={isReady()}>
-            <button
-              type="button"
-              class="inline-flex h-9 items-center justify-center border border-bf-accent px-4 text-caption font-semibold text-bf-accent hover:bg-bf-accent-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
-              onClick={print}
-            >
-              Print / Save PDF
-            </button>
-          </Show>
+        <Container class="flex flex-col gap-3 py-3">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <p class="text-caption text-bf-text-muted">
+              {theme() === "classic"
+                ? "Classic single-column layout — companion for parsers, not an ATS guarantee."
+                : "Modern Split resume — open print or save as PDF from your browser."}
+            </p>
+            <Show when={isReady()}>
+              <button
+                type="button"
+                class="inline-flex h-9 items-center justify-center border border-bf-accent px-4 text-caption font-semibold text-bf-accent hover:bg-bf-accent-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bf-accent/50"
+                onClick={print}
+                aria-label="Print or save as PDF"
+              >
+                Print / Save PDF
+              </button>
+            </Show>
+          </div>
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Resume layout theme">
+            <A href="/resume" class={themeLinkClass("modern")}>Modern Split</A>
+            <A href="/resume?theme=classic" class={themeLinkClass("classic")}>
+              Classic (single column)
+            </A>
+          </div>
         </Container>
       </div>
 
-      <div class="resume-preview-stage">
+      <main class="resume-preview-stage" id="resume-main">
         <div class="resume-preview-inner">
           <Show when={resume.loading()}>
             <ResumePageSkeleton />
@@ -90,10 +120,18 @@ export default function ResumePage() {
           </Show>
 
           <Show when={isReady()}>
-            <Show when={doc()}>{(d) => <ModernSplitResume doc={d()} />}</Show>
+            <Show when={doc()}>
+              {(d) =>
+                theme() === "classic" ? (
+                  <ClassicResume doc={d()} />
+                ) : (
+                  <ModernSplitResume doc={d()} />
+                )
+              }
+            </Show>
           </Show>
         </div>
-      </div>
+      </main>
     </>
   );
 }

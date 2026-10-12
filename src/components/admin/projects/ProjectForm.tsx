@@ -1,4 +1,6 @@
 import { Accessor, createEffect, onCleanup } from "solid-js";
+import AdminFieldHint from "~/components/admin/AdminFieldHint";
+import AdminFormSection from "~/components/admin/AdminFormSection";
 import MediaPicker from "~/components/admin/MediaPicker";
 import Input from "~/components/ui/Input";
 import Select from "~/components/ui/Select";
@@ -21,6 +23,10 @@ export interface ProjectFormValues {
   screenshotMediaId: string | null;
   screenshotUrl?: string | null;
   features: string[];
+  includeOnResume: boolean;
+  resumeSortOrder: number;
+  resumeDescription: string;
+  resumeHighlights: string[];
 }
 
 export const emptyProjectForm = (): ProjectFormValues => ({
@@ -37,6 +43,10 @@ export const emptyProjectForm = (): ProjectFormValues => ({
   published: false,
   screenshotMediaId: null,
   features: [],
+  includeOnResume: false,
+  resumeSortOrder: 0,
+  resumeDescription: "",
+  resumeHighlights: [],
 });
 
 interface ProjectFormProps {
@@ -78,8 +88,8 @@ export default function ProjectForm(props: ProjectFormProps) {
 
   return (
     <div class="space-y-8">
-      <section class="space-y-3">
-        <h2 class="text-caption text-bf-accent">Basics</h2>
+      <AdminFormSection title="Site content">
+        <AdminFieldHint variant="site" />
         <div>
           <FieldLabel id="project-title">Title</FieldLabel>
           <Input
@@ -116,7 +126,7 @@ export default function ProjectForm(props: ProjectFormProps) {
             onInput={(e) => set({ description: e.currentTarget.value })}
           />
         </div>
-      </section>
+      </AdminFormSection>
 
       <section class="space-y-3">
         <h2 class="text-caption text-bf-accent">Screenshot</h2>
@@ -155,6 +165,47 @@ export default function ProjectForm(props: ProjectFormProps) {
           />
         </div>
       </section>
+
+      <AdminFormSection title="Resume (print)">
+        <AdminFieldHint variant="resume" />
+        <label class="flex items-center gap-2 text-body text-bf-text" for="project-include-resume">
+          <input
+            id="project-include-resume"
+            type="checkbox"
+            class="accent-[var(--color-bf-accent)]"
+            checked={props.form().includeOnResume}
+            onChange={(e) => set({ includeOnResume: e.currentTarget.checked })}
+          />
+          Include on resume PDF
+        </label>
+        <AdminFieldHint variant="fact" class="mb-1">
+          Published projects can still be omitted from the PDF when this is off.
+        </AdminFieldHint>
+        <div>
+          <FieldLabel id="project-resume-sort">Resume sort order</FieldLabel>
+          <Input
+            id="project-resume-sort"
+            type="number"
+            value={props.form().resumeSortOrder}
+            onInput={(e) => set({ resumeSortOrder: Number(e.currentTarget.value) })}
+          />
+        </div>
+        <div>
+          <FieldLabel id="project-resume-desc">Resume description (short)</FieldLabel>
+          <Textarea
+            id="project-resume-desc"
+            rows={3}
+            value={props.form().resumeDescription}
+            onInput={(e) => set({ resumeDescription: e.currentTarget.value })}
+          />
+        </div>
+        <FeatureListEditor
+          label="Resume highlights"
+          items={props.form().resumeHighlights}
+          onChange={(resumeHighlights) => set({ resumeHighlights })}
+          placeholder="Highlight for PDF"
+        />
+      </AdminFormSection>
 
       <section class="space-y-3">
         <h2 class="text-caption text-bf-accent">Publishing</h2>

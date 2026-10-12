@@ -1,6 +1,8 @@
 import Seo from "~/components/Seo";
 import FeaturedDeployments from "~/components/projects/FeaturedDeployments";
 import ClosingCta from "~/components/home/ClosingCta";
+import CredentialsBlock from "~/components/home/CredentialsBlock";
+import EducationLog from "~/components/home/EducationLog";
 import ExperienceLog from "~/components/home/ExperienceLog";
 import HeroSection from "~/components/hero/HeroSection";
 import MetricsStrip from "~/components/home/MetricsStrip";
@@ -26,6 +28,8 @@ export default function HomePage() {
       <HeroSection />
       <FeaturedDeployments />
       <ExperienceLog />
+      <EducationLog />
+      <CredentialsBlock />
       <MetricsStrip />
       <SystemArchitecture />
       <TechPhilosophy />

@@ -60,6 +60,11 @@ export default function ExperienceLog() {
                   </div>
                   <p class="mt-1 text-caption text-bf-text-muted">
                     {dateRange(entry)}
+                    <Show when={entry.location?.trim()}>
+                      {(loc) => (
+                        <span class="text-bf-text-muted"> · {loc()}</span>
+                      )}
+                    </Show>
                     <Show when={entry.level}>
                       <span class="text-bf-text-muted"> · {entry.level}</span>
                     </Show>

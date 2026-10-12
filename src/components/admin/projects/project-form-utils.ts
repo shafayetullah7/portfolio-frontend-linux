@@ -17,6 +17,10 @@ export function projectToForm(project: Project): ProjectFormValues {
     screenshotMediaId: project.screenshotMediaId ?? null,
     screenshotUrl: project.screenshotUrl ?? null,
     features: project.features?.map((f) => f.content) ?? [],
+    includeOnResume: project.includeOnResume ?? false,
+    resumeSortOrder: project.resumeSortOrder ?? 0,
+    resumeDescription: project.resumeDescription ?? "",
+    resumeHighlights: project.resumeHighlights ?? [],
   };
 }
 
@@ -35,6 +39,12 @@ export function formToApiBody(form: ProjectFormValues) {
     published: form.published,
     screenshotMediaId: form.screenshotMediaId,
     features: form.features.filter(Boolean),
+    includeOnResume: form.includeOnResume,
+    resumeSortOrder: form.resumeSortOrder,
+    resumeDescription: form.resumeDescription.trim() || null,
+    resumeHighlights: form.resumeHighlights.filter(Boolean).length
+      ? form.resumeHighlights.filter(Boolean)
+      : null,
   };
 }
 
