@@ -10,6 +10,7 @@ import type {
   MediaItem,
   ProfileData,
   Project,
+  ResumeSettings,
   SiteArchitecturePrinciple,
   SiteContentData,
   SiteMetric,
@@ -134,4 +135,10 @@ export const adminApi = {
   updateInterest: (id: string, body: unknown) =>
     admin(`/interests/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
   deleteInterest: (id: string) => admin(`/interests/${id}`, { method: "DELETE" }),
+  getResumeSettings: () => admin("/resume-settings") as Promise<ResumeSettings>,
+  updateResumeSettings: (body: unknown) =>
+    admin("/resume-settings", {
+      method: "PUT",
+      body: JSON.stringify(body),
+    }) as Promise<ResumeSettings>,
 };

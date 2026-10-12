@@ -109,6 +109,7 @@ export function truncateBio(bio: string, max = 160): string {
 export function platformLabel(platform: string) {
   const known: Record<string, string> = {
     GITHUB: "GitHub",
+    GITLAB: "GitLab",
     LINKEDIN: "LinkedIn",
     TWITTER: "Twitter",
     X: "X",

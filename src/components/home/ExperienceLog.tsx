@@ -81,6 +81,36 @@ export default function ExperienceLog() {
                       <For each={entry.techTags}>{(t) => <Tag>{t.tag}</Tag>}</For>
                     </div>
                   </Show>
+                  <Show when={entry.experienceProjects?.length}>
+                    <ul class="mt-4 space-y-3 border-l border-bf-border pl-3">
+                      <For
+                        each={[...(entry.experienceProjects ?? [])].sort(
+                          (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0),
+                        )}
+                      >
+                        {(proj) => (
+                          <li>
+                            <p class="text-body text-bf-text">{proj.name}</p>
+                            <Show when={proj.projectDescription?.trim()}>
+                              <p class="mt-1 text-body text-bf-text-muted">{proj.projectDescription}</p>
+                            </Show>
+                            <Show when={proj.liveLink?.trim()}>
+                              {(url) => (
+                                <a
+                                  href={url()}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  class="mt-1 inline-block text-caption text-bf-accent no-underline hover:underline"
+                                >
+                                  Live →
+                                </a>
+                              )}
+                            </Show>
+                          </li>
+                        )}
+                      </For>
+                    </ul>
+                  </Show>
                 </li>
               )}
             </For>

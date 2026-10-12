@@ -4,6 +4,23 @@ import { Tag } from "~/components/ui";
 import type { Project } from "~/lib/api/types/portfolio.types";
 import { parseStack } from "~/lib/projects";
 
+function formatProjectMonth(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso.slice(0, 7) || iso;
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+  return `${y}-${m}`;
+}
+
+function projectDateRange(project: Project): string | null {
+  const start = project.startDate;
+  const end = project.endDate;
+  if (!start && !end) return null;
+  const startLabel = start ? formatProjectMonth(start) : "?";
+  const endLabel = end ? formatProjectMonth(end) : "Present";
+  return `${startLabel} → ${endLabel}`;
+}
+
 interface ProjectDetailProps {
   project: Project;
 }
@@ -28,6 +45,11 @@ export default function ProjectDetail(props: ProjectDetailProps) {
           ← ./projects
         </A>
         <h1 class="mt-4 text-display break-words text-bf-text">{props.project.title}</h1>
+        <Show when={projectDateRange(props.project)}>
+          {(range) => (
+            <p class="mt-2 text-caption text-bf-text-muted">{range()}</p>
+          )}
+        </Show>
         <div class="mt-4 flex flex-wrap gap-2">
           <For each={tags()}>{(t) => <Tag>{t}</Tag>}</For>
         </div>
@@ -88,6 +110,16 @@ export default function ProjectDetail(props: ProjectDetailProps) {
       </Show>
 
       <div class="flex flex-wrap gap-4 text-body">
+        <Show when={props.project.liveUrl || props.project.docsUrl}>
+          <a
+            href={(props.project.liveUrl || props.project.docsUrl)!}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-bf-accent no-underline hover:underline"
+          >
+            Live →
+          </a>
+        </Show>
         <Show when={props.project.repoUrl}>
           <a
             href={props.project.repoUrl!}
@@ -98,14 +130,14 @@ export default function ProjectDetail(props: ProjectDetailProps) {
             Repo →
           </a>
         </Show>
-        <Show when={props.project.docsUrl}>
+        <Show when={props.project.docsUrl && props.project.liveUrl}>
           <a
             href={props.project.docsUrl!}
             target="_blank"
             rel="noopener noreferrer"
             class="text-bf-accent no-underline hover:underline"
           >
-            Live / Docs →
+            Docs →
           </a>
         </Show>
       </div>

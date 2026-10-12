@@ -1,4 +1,4 @@
-import { Accessor, createEffect, onCleanup } from "solid-js";
+import { Accessor, createEffect, For, onCleanup, Show } from "solid-js";
 import AdminFieldHint from "~/components/admin/AdminFieldHint";
 import AdminFormSection from "~/components/admin/AdminFormSection";
 import MediaPicker from "~/components/admin/MediaPicker";
@@ -27,6 +27,10 @@ export interface ProjectFormValues {
   resumeSortOrder: number;
   resumeDescription: string;
   resumeHighlights: string[];
+  startDate: string;
+  endDate: string;
+  liveUrl: string;
+  resumeLinks: Array<{ label: string; liveUrl: string; githubUrl: string }>;
 }
 
 export const emptyProjectForm = (): ProjectFormValues => ({
@@ -47,6 +51,10 @@ export const emptyProjectForm = (): ProjectFormValues => ({
   resumeSortOrder: 0,
   resumeDescription: "",
   resumeHighlights: [],
+  startDate: "",
+  endDate: "",
+  liveUrl: "",
+  resumeLinks: [],
 });
 
 interface ProjectFormProps {
@@ -147,7 +155,27 @@ export default function ProjectForm(props: ProjectFormProps) {
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-caption text-bf-accent">Links</h2>
+        <h2 class="text-caption text-bf-accent">Timeline & links</h2>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div>
+            <FieldLabel id="project-start">Start date (optional)</FieldLabel>
+            <Input
+              id="project-start"
+              type="date"
+              value={props.form().startDate}
+              onInput={(e) => set({ startDate: e.currentTarget.value })}
+            />
+          </div>
+          <div>
+            <FieldLabel id="project-end">End date (optional)</FieldLabel>
+            <Input
+              id="project-end"
+              type="date"
+              value={props.form().endDate}
+              onInput={(e) => set({ endDate: e.currentTarget.value })}
+            />
+          </div>
+        </div>
         <div>
           <FieldLabel id="project-repo">Repo URL</FieldLabel>
           <Input
@@ -157,7 +185,19 @@ export default function ProjectForm(props: ProjectFormProps) {
           />
         </div>
         <div>
-          <FieldLabel id="project-docs">Live / docs URL</FieldLabel>
+          <FieldLabel id="project-live">Live URL (site project page)</FieldLabel>
+          <AdminFieldHint variant="fact" class="mb-1">
+            Shown on /projects/[slug]. On the PDF, liveUrl is used when resume link rows are empty
+            (else docs/repo URLs apply per assembler rules).
+          </AdminFieldHint>
+          <Input
+            id="project-live"
+            value={props.form().liveUrl}
+            onInput={(e) => set({ liveUrl: e.currentTarget.value })}
+          />
+        </div>
+        <div>
+          <FieldLabel id="project-docs">Docs URL (fallback)</FieldLabel>
           <Input
             id="project-docs"
             value={props.form().docsUrl}
@@ -205,6 +245,73 @@ export default function ProjectForm(props: ProjectFormProps) {
           onChange={(resumeHighlights) => set({ resumeHighlights })}
           placeholder="Highlight for PDF"
         />
+        <Show when={props.form().includeOnResume}>
+          <div class="space-y-3 border-t border-bf-border pt-4">
+            <div class="flex items-center justify-between gap-2">
+              <p class="text-caption text-bf-text-muted">Resume link rows (PDF)</p>
+              <button
+                type="button"
+                class="text-caption text-bf-accent hover:underline"
+                onClick={() =>
+                  set({
+                    resumeLinks: [
+                      ...props.form().resumeLinks,
+                      { label: "", liveUrl: "", githubUrl: "" },
+                    ],
+                  })
+                }
+              >
+                Add row
+              </button>
+            </div>
+            <For each={props.form().resumeLinks}>
+              {(row, index) => (
+                <div class="grid gap-2 border border-bf-border p-3 sm:grid-cols-3">
+                  <Input
+                    placeholder="Label"
+                    value={row.label}
+                    onInput={(e) => {
+                      const next = [...props.form().resumeLinks];
+                      next[index()] = { ...row, label: e.currentTarget.value };
+                      set({ resumeLinks: next });
+                    }}
+                  />
+                  <Input
+                    placeholder="Live URL"
+                    value={row.liveUrl}
+                    onInput={(e) => {
+                      const next = [...props.form().resumeLinks];
+                      next[index()] = { ...row, liveUrl: e.currentTarget.value };
+                      set({ resumeLinks: next });
+                    }}
+                  />
+                  <div class="flex gap-2">
+                    <Input
+                      placeholder="GitHub URL"
+                      value={row.githubUrl}
+                      onInput={(e) => {
+                        const next = [...props.form().resumeLinks];
+                        next[index()] = { ...row, githubUrl: e.currentTarget.value };
+                        set({ resumeLinks: next });
+                      }}
+                    />
+                    <button
+                      type="button"
+                      class="shrink-0 text-caption text-bf-error"
+                      onClick={() =>
+                        set({
+                          resumeLinks: props.form().resumeLinks.filter((_, i) => i !== index()),
+                        })
+                      }
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+              )}
+            </For>
+          </div>
+        </Show>
       </AdminFormSection>
 
       <section class="space-y-3">

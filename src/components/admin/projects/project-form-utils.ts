@@ -21,6 +21,15 @@ export function projectToForm(project: Project): ProjectFormValues {
     resumeSortOrder: project.resumeSortOrder ?? 0,
     resumeDescription: project.resumeDescription ?? "",
     resumeHighlights: project.resumeHighlights ?? [],
+    startDate: project.startDate ? project.startDate.slice(0, 10) : "",
+    endDate: project.endDate ? project.endDate.slice(0, 10) : "",
+    liveUrl: project.liveUrl ?? "",
+    resumeLinks:
+      project.resumeLinks?.map((r) => ({
+        label: r.label,
+        liveUrl: r.liveUrl ?? "",
+        githubUrl: r.githubUrl ?? "",
+      })) ?? [],
   };
 }
 
@@ -45,6 +54,16 @@ export function formToApiBody(form: ProjectFormValues) {
     resumeHighlights: form.resumeHighlights.filter(Boolean).length
       ? form.resumeHighlights.filter(Boolean)
       : null,
+    startDate: form.startDate || null,
+    endDate: form.endDate || null,
+    liveUrl: form.liveUrl.trim() || null,
+    resumeLinks: form.resumeLinks
+      .filter((r) => r.label.trim() || r.liveUrl.trim() || r.githubUrl.trim())
+      .map((r) => ({
+        label: r.label.trim(),
+        liveUrl: r.liveUrl.trim() || null,
+        githubUrl: r.githubUrl.trim() || null,
+      })),
   };
 }
 

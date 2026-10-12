@@ -114,6 +114,15 @@ export default function ContactPage() {
                 </p>
               )}
             </Show>
+            <Show when={contact.whatsapp()}>
+              {(wa) => (
+                <p>
+                  <span class="text-caption">WhatsApp</span>
+                  <br />
+                  <span class="text-bf-text-muted">{wa()}</span>
+                </p>
+              )}
+            </Show>
             <Show when={contact.location()}>
               {(place) => (
                 <p>

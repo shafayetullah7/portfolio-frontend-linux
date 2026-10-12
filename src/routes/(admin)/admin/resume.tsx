@@ -1,6 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { A } from "@solidjs/router";
 import { createResource, For, Show } from "solid-js";
+import AdminResumeSettingsPanel from "~/components/admin/resume/AdminResumeSettingsPanel";
 import Button from "~/components/ui/Button";
 import QueryState from "~/components/ui/QueryState";
 import { adminApi } from "~/lib/api/endpoints/admin";
@@ -124,7 +125,8 @@ export default function AdminResumePage() {
       >
         <Show when={readiness()}>
           {(data) => (
-            <div class="max-w-xl space-y-8">
+            <div class="max-w-2xl space-y-8">
+              <AdminResumeSettingsPanel />
               <Show when={data().warnings.length > 0}>
                 <section>
                   <h2 class="mb-3 text-caption text-bf-accent">Quality warnings</h2>

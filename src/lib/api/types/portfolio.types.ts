@@ -5,6 +5,9 @@ export interface ProfileData {
     bio: string;
     resumeSummary?: string | null;
     resumeTitle?: string | null;
+    dateOfBirth?: string | null;
+    nationality?: string | null;
+    gender?: string | null;
     avatarMediaId?: string | null;
   } | null;
   systemInfo: {
@@ -35,6 +38,14 @@ export interface Project {
   resumeSortOrder?: number;
   resumeDescription?: string | null;
   resumeHighlights?: string[] | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  liveUrl?: string | null;
+  resumeLinks?: Array<{
+    label: string;
+    liveUrl?: string | null;
+    githubUrl?: string | null;
+  }> | null;
   createdAt?: string;
   updatedAt?: string;
   features: { id: string; content: string; sortOrder: number }[];
@@ -69,13 +80,28 @@ export interface ExperienceEntry {
   sortOrder?: number;
   includeOnResume?: boolean;
   resumeBullets?: string[] | null;
+  resumeFormat?: "bullets" | "paragraph";
+  resumeParagraph?: string | null;
+  experienceProjects?: ExperienceProjectEntry[];
   responsibilities: { id: string; content: string }[];
   techTags: { id: string; tag: string }[];
+}
+
+export interface ExperienceProjectEntry {
+  id: string;
+  name: string;
+  projectDescription: string;
+  format: "bullets" | "paragraph";
+  description: string;
+  bullets: string[];
+  liveLink?: string | null;
+  sortOrder: number;
 }
 
 export interface ContactData {
   email: string;
   phone?: string | null;
+  whatsapp?: string | null;
   location?: string | null;
   gpgKey?: string | null;
   socialLinks: { id: string; platform: string; url: string }[];
@@ -169,4 +195,35 @@ export interface SiteContentData {
   philosophy: SitePhilosophy[];
   architecturePrinciples: SiteArchitecturePrinciple[];
   architectureNodeLabels: Record<string, string>;
+}
+
+export interface ResumeSectionLabels {
+  contact: string;
+  profile: string;
+  experience: string;
+  education: string;
+  skills: string;
+  projects: string;
+  languages: string;
+  interests: string;
+  certifications: string;
+}
+
+export interface ResumeSectionVisibility {
+  summary: boolean;
+  experience: boolean;
+  projects: boolean;
+  skills: boolean;
+  education: boolean;
+  certifications: boolean;
+  languages: boolean;
+  interests: boolean;
+}
+
+export interface ResumeSettings {
+  id: string;
+  sectionLabels: ResumeSectionLabels;
+  sectionVisibility: ResumeSectionVisibility;
+  interestsFormat: "bullets" | "paragraph";
+  interestsParagraph: string;
 }

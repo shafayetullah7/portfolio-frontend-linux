@@ -9,7 +9,15 @@ import Select from "~/components/ui/Select";
 import { adminApi } from "~/lib/api/endpoints/admin";
 import { ApiError } from "~/lib/api/types";
 
-const PLATFORMS = ["GITHUB", "LINKEDIN", "TWITTER", "WEBSITE", "EMAIL", "OTHER"] as const;
+const PLATFORMS = [
+  "GITHUB",
+  "GITLAB",
+  "LINKEDIN",
+  "TWITTER",
+  "WEBSITE",
+  "EMAIL",
+  "OTHER",
+] as const;
 
 type SocialLink = { platform: string; url: string };
 
@@ -18,6 +26,7 @@ export default function AdminContactPage() {
   const [contact] = createResource(refresh, () => adminApi.getContact());
   const [email, setEmail] = createSignal("");
   const [phone, setPhone] = createSignal("");
+  const [whatsapp, setWhatsapp] = createSignal("");
   const [location, setLocation] = createSignal("");
   const [gpgKey, setGpgKey] = createSignal("");
   const [socialLinks, setSocialLinks] = createSignal<SocialLink[]>([]);
@@ -32,6 +41,7 @@ export default function AdminContactPage() {
     if (!c) return;
     setEmail(c.email);
     setPhone(c.phone ?? "");
+    setWhatsapp(c.whatsapp ?? "");
     setLocation(c.location ?? "");
     setGpgKey(c.gpgKey ?? "");
     setSocialLinks(c.socialLinks?.map((l) => ({ platform: l.platform, url: l.url })) ?? []);
@@ -44,6 +54,7 @@ export default function AdminContactPage() {
       await adminApi.updateContact({
         email: email(),
         phone: phone().trim() || null,
+        whatsapp: whatsapp().trim() || null,
         location: location().trim() || null,
         gpgKey: gpgKey() || null,
         socialLinks: socialLinks(),
@@ -100,6 +111,20 @@ export default function AdminContactPage() {
                 maxLength={40}
                 value={phone()}
                 onInput={(e) => setPhone(e.currentTarget.value)}
+              />
+            </div>
+            <div>
+              <label class="mb-1 block text-caption text-bf-text-muted" for="contact-whatsapp">
+                WhatsApp
+              </label>
+              <AdminFieldHint variant="fact" class="mb-1">
+                Shown on /contact and the resume PDF (plain text, not a phone link).
+              </AdminFieldHint>
+              <Input
+                id="contact-whatsapp"
+                maxLength={40}
+                value={whatsapp()}
+                onInput={(e) => setWhatsapp(e.currentTarget.value)}
               />
             </div>
             <div>

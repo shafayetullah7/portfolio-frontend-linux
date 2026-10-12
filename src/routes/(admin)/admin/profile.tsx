@@ -19,6 +19,9 @@ export default function AdminProfilePage() {
   const [bio, setBio] = createSignal("");
   const [resumeTitle, setResumeTitle] = createSignal("");
   const [resumeSummary, setResumeSummary] = createSignal("");
+  const [dateOfBirth, setDateOfBirth] = createSignal("");
+  const [nationality, setNationality] = createSignal("");
+  const [gender, setGender] = createSignal("");
   const [os, setOs] = createSignal("");
   const [kernel, setKernel] = createSignal("");
   const [shell, setShell] = createSignal("");
@@ -38,6 +41,9 @@ export default function AdminProfilePage() {
     setBio(d.profile?.bio ?? "");
     setResumeTitle(d.profile?.resumeTitle ?? "");
     setResumeSummary(d.profile?.resumeSummary ?? "");
+    setDateOfBirth(d.profile?.dateOfBirth ?? "");
+    setNationality(d.profile?.nationality ?? "");
+    setGender(d.profile?.gender ?? "");
     setOs(d.systemInfo?.os ?? "");
     setKernel(d.systemInfo?.kernel ?? "");
     setShell(d.systemInfo?.shell ?? "");
@@ -55,6 +61,9 @@ export default function AdminProfilePage() {
         bio: bio(),
         resumeTitle: resumeTitle().trim() || null,
         resumeSummary: resumeSummary().trim() || null,
+        dateOfBirth: dateOfBirth().trim() || null,
+        nationality: nationality().trim() || null,
+        gender: gender().trim() || null,
         avatarMediaId: avatarMediaId(),
       });
       await adminApi.updateSystemInfo({
@@ -160,6 +169,47 @@ export default function AdminProfilePage() {
               <p class="mt-1 text-caption text-bf-text-muted">
                 Target ~3–5 lines (about 400–600 characters). Not the same as site bio.
               </p>
+            </div>
+            <div class="border-t border-bf-border pt-4 space-y-3">
+              <p class="text-caption text-bf-text-muted">
+                Optional PII for the resume PDF only — not shown on the public site or hero.
+              </p>
+              <p class="text-caption text-bf-error">
+                Not recommended for US/UK applications.
+              </p>
+              <div>
+                <label class="mb-1 block text-caption text-bf-text-muted" for="profile-dob">
+                  Date of birth
+                </label>
+                <Input
+                  id="profile-dob"
+                  maxLength={40}
+                  value={dateOfBirth()}
+                  onInput={(e) => setDateOfBirth(e.currentTarget.value)}
+                />
+              </div>
+              <div>
+                <label class="mb-1 block text-caption text-bf-text-muted" for="profile-nationality">
+                  Nationality
+                </label>
+                <Input
+                  id="profile-nationality"
+                  maxLength={120}
+                  value={nationality()}
+                  onInput={(e) => setNationality(e.currentTarget.value)}
+                />
+              </div>
+              <div>
+                <label class="mb-1 block text-caption text-bf-text-muted" for="profile-gender">
+                  Gender
+                </label>
+                <Input
+                  id="profile-gender"
+                  maxLength={80}
+                  value={gender()}
+                  onInput={(e) => setGender(e.currentTarget.value)}
+                />
+              </div>
             </div>
           </AdminFormSection>
 

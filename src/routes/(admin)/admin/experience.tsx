@@ -2,7 +2,11 @@ import { Title } from "@solidjs/meta";
 import { createResource, createSignal, For, Show } from "solid-js";
 import AdminFieldHint from "~/components/admin/AdminFieldHint";
 import AdminFormSection from "~/components/admin/AdminFormSection";
+import ExperienceProjectsEditor, {
+  type ExperienceProjectFormRow,
+} from "~/components/admin/experience/ExperienceProjectsEditor";
 import FeatureListEditor from "~/components/admin/projects/FeatureListEditor";
+import Textarea from "~/components/ui/Textarea";
 import Button from "~/components/ui/Button";
 import ConfirmDialog from "~/components/ui/ConfirmDialog";
 import Input from "~/components/ui/Input";
@@ -35,6 +39,9 @@ export default function AdminExperiencePage() {
     responsibilities: [] as string[],
     techTags: [] as string[],
     resumeBullets: [] as string[],
+    resumeFormat: "bullets" as "bullets" | "paragraph",
+    resumeParagraph: "",
+    experienceProjects: [] as ExperienceProjectFormRow[],
   });
 
   const [form, setForm] = createSignal(emptyForm());
@@ -64,6 +71,17 @@ export default function AdminExperiencePage() {
       responsibilities: e.responsibilities?.map((r) => r.content) ?? [],
       techTags: e.techTags?.map((t) => t.tag) ?? [],
       resumeBullets: e.resumeBullets ?? [],
+      resumeFormat: e.resumeFormat ?? "bullets",
+      resumeParagraph: e.resumeParagraph ?? "",
+      experienceProjects:
+        e.experienceProjects?.map((p) => ({
+          name: p.name,
+          projectDescription: p.projectDescription ?? "",
+          format: p.format ?? "bullets",
+          description: p.description ?? "",
+          bullets: p.bullets ?? [],
+          liveLink: p.liveLink ?? "",
+        })) ?? [],
     });
     setError("");
     setEditing(e);
@@ -88,6 +106,19 @@ export default function AdminExperiencePage() {
       resumeBullets: f.resumeBullets.filter(Boolean).length
         ? f.resumeBullets.filter(Boolean)
         : null,
+      resumeFormat: f.resumeFormat,
+      resumeParagraph: f.resumeParagraph.trim() || null,
+      experienceProjects: f.experienceProjects
+        .filter((p) => p.name.trim())
+        .map((p, sortOrder) => ({
+          name: p.name.trim(),
+          projectDescription: p.projectDescription.trim() || undefined,
+          format: p.format,
+          description: p.description.trim() || undefined,
+          bullets: p.bullets.filter(Boolean).length ? p.bullets.filter(Boolean) : undefined,
+          liveLink: p.liveLink.trim() || null,
+          sortOrder,
+        })),
     };
     setError("");
     try {
@@ -302,11 +333,48 @@ export default function AdminExperiencePage() {
             <AdminFieldHint variant="fact" class="mb-1">
               When off, role stays on the site timeline but is omitted from the PDF.
             </AdminFieldHint>
-            <FeatureListEditor
-              label="Resume bullets (optional)"
-              items={form().resumeBullets}
-              onChange={(resumeBullets) => set({ resumeBullets })}
-              placeholder="Short bullet for PDF"
+            <div>
+              <label class="mb-1 block text-caption text-bf-text-muted" for="exp-resume-format">
+                Resume body format
+              </label>
+              <Select
+                id="exp-resume-format"
+                options={[
+                  { value: "bullets", label: "Bullets" },
+                  { value: "paragraph", label: "Paragraph" },
+                ]}
+                value={form().resumeFormat}
+                onChange={(e) =>
+                  set({ resumeFormat: e.currentTarget.value as "bullets" | "paragraph" })
+                }
+              />
+            </div>
+            <Show
+              when={form().resumeFormat === "paragraph"}
+              fallback={
+                <FeatureListEditor
+                  label="Resume bullets (optional)"
+                  items={form().resumeBullets}
+                  onChange={(resumeBullets) => set({ resumeBullets })}
+                  placeholder="Short bullet for PDF"
+                />
+              }
+            >
+              <div>
+                <label class="mb-1 block text-caption text-bf-text-muted" for="exp-resume-para">
+                  Resume paragraph
+                </label>
+                <Textarea
+                  id="exp-resume-para"
+                  rows={4}
+                  value={form().resumeParagraph}
+                  onInput={(e) => set({ resumeParagraph: e.currentTarget.value })}
+                />
+              </div>
+            </Show>
+            <ExperienceProjectsEditor
+              items={form().experienceProjects}
+              onChange={(experienceProjects) => set({ experienceProjects })}
             />
           </AdminFormSection>
 
