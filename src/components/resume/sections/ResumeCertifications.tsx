@@ -2,16 +2,22 @@ import { For, Show } from "solid-js";
 import { formatResumeCertDate } from "~/lib/resume/format-resume-date";
 import { formatResumeLinkLabel } from "~/lib/resume/format-resume-link-label";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-import { ResumeSectionHeading } from "./ResumeSectionHeading";
+import {
+  ResumeSectionShell,
+  type ResumeSectionLayoutProps,
+} from "./ResumeSectionShell";
 
-interface ResumeCertificationsProps {
+interface ResumeCertificationsProps extends ResumeSectionLayoutProps {
   certifications: ResumeDocument["certifications"];
 }
 
 export function ResumeCertifications(props: ResumeCertificationsProps) {
   return (
-    <section class="resume-section">
-      <ResumeSectionHeading title="Certifications" />
+    <ResumeSectionShell
+      title="Certifications"
+      hideHeading={props.hideHeading}
+      bare={props.bare}
+    >
       <For each={props.certifications}>
         {(cert) => {
           const dateLabel = formatResumeCertDate(cert.date);
@@ -42,6 +48,6 @@ export function ResumeCertifications(props: ResumeCertificationsProps) {
           );
         }}
       </For>
-    </section>
+    </ResumeSectionShell>
   );
 }

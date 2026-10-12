@@ -1,15 +1,17 @@
 import { For } from "solid-js";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-import { ResumeSectionHeading } from "./ResumeSectionHeading";
+import {
+  ResumeSectionShell,
+  type ResumeSectionLayoutProps,
+} from "./ResumeSectionShell";
 
-interface ResumeLanguagesProps {
+interface ResumeLanguagesProps extends ResumeSectionLayoutProps {
   languages: ResumeDocument["languages"];
 }
 
 export function ResumeLanguages(props: ResumeLanguagesProps) {
   return (
-    <section class="resume-section">
-      <ResumeSectionHeading title="Languages" />
+    <ResumeSectionShell title="Languages" hideHeading={props.hideHeading} bare={props.bare}>
       <ul class="resume-plain-list">
         <For each={props.languages}>
           {(lang) => (
@@ -21,6 +23,6 @@ export function ResumeLanguages(props: ResumeLanguagesProps) {
           )}
         </For>
       </ul>
-    </section>
+    </ResumeSectionShell>
   );
 }

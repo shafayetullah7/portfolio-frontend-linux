@@ -1,0 +1,12 @@
+export type { IconProps } from "./Icon";
+export { Icon } from "./Icon";
+export { MailIcon } from "./MailIcon";
+export { PhoneIcon } from "./PhoneIcon";
+export { WhatsAppIcon } from "./WhatsAppIcon";
+export { MapPinIcon } from "./MapPinIcon";
+export { GlobeIcon } from "./GlobeIcon";
+export { LinkedInIcon } from "./LinkedInIcon";
+export { GitHubIcon } from "./GitHubIcon";
+export { GitLabIcon } from "./GitLabIcon";
+export { ExternalLinkIcon } from "./ExternalLinkIcon";
+export { AwardIcon } from "./AwardIcon";

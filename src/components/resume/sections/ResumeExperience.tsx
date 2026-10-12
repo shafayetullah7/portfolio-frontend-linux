@@ -1,16 +1,18 @@
 import { For } from "solid-js";
 import { formatResumeDateRange } from "~/lib/resume/format-resume-date";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-import { ResumeSectionHeading } from "./ResumeSectionHeading";
+import {
+  ResumeSectionShell,
+  type ResumeSectionLayoutProps,
+} from "./ResumeSectionShell";
 
-interface ResumeExperienceProps {
+interface ResumeExperienceProps extends ResumeSectionLayoutProps {
   experience: ResumeDocument["experience"];
 }
 
 export function ResumeExperience(props: ResumeExperienceProps) {
   return (
-    <section class="resume-section">
-      <ResumeSectionHeading title="Experience" />
+    <ResumeSectionShell title="Experience" hideHeading={props.hideHeading} bare={props.bare}>
       <For each={props.experience}>
         {(entry) => (
           <article class="resume-entry">
@@ -36,6 +38,6 @@ export function ResumeExperience(props: ResumeExperienceProps) {
           </article>
         )}
       </For>
-    </section>
+    </ResumeSectionShell>
   );
 }

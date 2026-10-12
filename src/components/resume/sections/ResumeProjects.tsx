@@ -1,16 +1,18 @@
 import { For, Show } from "solid-js";
 import { formatResumeLinkLabel } from "~/lib/resume/format-resume-link-label";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-import { ResumeSectionHeading } from "./ResumeSectionHeading";
+import {
+  ResumeSectionShell,
+  type ResumeSectionLayoutProps,
+} from "./ResumeSectionShell";
 
-interface ResumeProjectsProps {
+interface ResumeProjectsProps extends ResumeSectionLayoutProps {
   projects: ResumeDocument["projects"];
 }
 
 export function ResumeProjects(props: ResumeProjectsProps) {
   return (
-    <section class="resume-section">
-      <ResumeSectionHeading title="Projects" />
+    <ResumeSectionShell title="Projects" hideHeading={props.hideHeading} bare={props.bare}>
       <For each={props.projects}>
         {(project) => (
           <article class="resume-entry">
@@ -50,6 +52,6 @@ export function ResumeProjects(props: ResumeProjectsProps) {
           </article>
         )}
       </For>
-    </section>
+    </ResumeSectionShell>
   );
 }

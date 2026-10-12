@@ -1,15 +1,26 @@
 import { Meta, Title } from "@solidjs/meta";
 import { A, useSearchParams } from "@solidjs/router";
 import { Show } from "solid-js";
+import type { Component } from "solid-js";
 import ClassicResume from "~/components/resume/ClassicResume";
-import ModernSplitResume from "~/components/resume/ModernSplitResume";
+import ModernSplitDocument from "~/components/resume/modern-split/ModernSplitDocument";
+import { ResumePreviewStage } from "~/components/resume/ResumePreviewStage";
 import { Container } from "~/components/ui";
 import { getResumeQuery } from "~/lib/api/public-queries";
 import { usePublicQueryResource } from "~/lib/api/use-public-query";
 import { formatResumeDocumentTitle } from "~/lib/resume/resume-document-title";
+import {
+  parseParityFixtureName,
+  type ParityFixtureName,
+} from "~/lib/resume/parity/fixture-names";
 import { resumeErrorMessage } from "~/lib/resume/resume-error-message";
 import { hasResumeIdentity } from "~/lib/resume/resume-visibility";
 import { useResumeDocumentTitle } from "~/lib/resume/use-resume-document-title";
+
+import DevParityResumeViewImport from "virtual:resume-parity-dev";
+
+type DevParityComponent = Component<{ fixture: ParityFixtureName }>;
+const DevParityResumeView = DevParityResumeViewImport as DevParityComponent | null;
 
 export type ResumeTheme = "modern" | "classic";
 
@@ -30,7 +41,7 @@ function ResumePageSkeleton() {
   );
 }
 
-export default function ResumePage() {
+function ResumePageFromApi() {
   const [searchParams] = useSearchParams();
   const theme = () => parseResumeTheme(searchParams.theme);
 
@@ -103,35 +114,46 @@ export default function ResumePage() {
         </Container>
       </div>
 
-      <main class="resume-preview-stage" id="resume-main">
-        <div class="resume-preview-inner">
-          <Show when={resume.loading()}>
-            <ResumePageSkeleton />
-          </Show>
+      <ResumePreviewStage id="resume-main">
+        <Show when={resume.loading()}>
+          <ResumePageSkeleton />
+        </Show>
 
-          <Show when={!resume.loading() && resume.error()}>
-            <p class="resume-state-message resume-state-message--error" role="alert">
-              {resumeErrorMessage(resume.error())}
-            </p>
-          </Show>
+        <Show when={!resume.loading() && resume.error()}>
+          <p class="resume-state-message resume-state-message--error" role="alert">
+            {resumeErrorMessage(resume.error())}
+          </p>
+        </Show>
 
-          <Show when={!resume.loading() && !resume.error() && isEmpty()}>
-            <p class="resume-state-message">Resume is not available yet.</p>
-          </Show>
+        <Show when={!resume.loading() && !resume.error() && isEmpty()}>
+          <p class="resume-state-message">Resume is not available yet.</p>
+        </Show>
 
-          <Show when={isReady()}>
-            <Show when={doc()}>
-              {(d) =>
-                theme() === "classic" ? (
-                  <ClassicResume doc={d()} />
-                ) : (
-                  <ModernSplitResume doc={d()} />
-                )
-              }
-            </Show>
+        <Show when={isReady()}>
+          <Show when={doc()}>
+            {(d) =>
+              theme() === "classic" ? (
+                <ClassicResume doc={d()} />
+              ) : (
+                <ModernSplitDocument doc={d()} />
+              )
+            }
           </Show>
-        </div>
-      </main>
+        </Show>
+      </ResumePreviewStage>
     </>
   );
+}
+
+export default function ResumePage() {
+  const [searchParams] = useSearchParams();
+  const parityFixture = (): ParityFixtureName | null =>
+    import.meta.env.DEV ? parseParityFixtureName(searchParams.parityFixture) : null;
+
+  const fixture = parityFixture();
+  if (import.meta.env.DEV && fixture && DevParityResumeView) {
+    return <DevParityResumeView fixture={fixture} />;
+  }
+
+  return <ResumePageFromApi />;
 }

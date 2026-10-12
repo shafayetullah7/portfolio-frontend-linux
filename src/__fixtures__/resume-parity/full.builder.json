@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 2,
+  "theme": "modern-split",
+  "personalInfo": {
+    "fullName": "Jordan Kim",
+    "jobTitle": "Staff Platform Engineer",
+    "email": "jordan.kim@example.com",
+    "phone": "+1 (555) 808-2211",
+    "address": "Seattle, WA",
+    "portfolioUrl": "https://jordankim.dev",
+    "linkedinUrl": "https://linkedin.com/in/jordankim",
+    "githubUrl": "https://github.com/jordankim",
+    "gitlabUrl": "https://gitlab.com/jordankim",
+    "whatsapp": "+1 (555) 808-0099",
+    "dateOfBirth": "1990-04-12",
+    "nationality": "United States",
+    "gender": "Non-binary",
+    "summary": "Platform engineer with deep experience in observability, service meshes, and developer productivity. Comfortable leading cross-team initiatives and writing clear technical specs."
+  },
+  "experience": [
+    {
+      "id": "exp-full-1",
+      "company": "Cloudscale Inc",
+      "position": "Staff Platform Engineer",
+      "location": "Seattle, WA",
+      "startDate": "2020-01",
+      "endDate": "",
+      "current": true,
+      "format": "bullets",
+      "bullets": [
+        "Owned internal developer platform used by 40+ product teams.",
+        "Drove adoption of standardized deployment pipelines."
+      ],
+      "description": "",
+      "experienceProjects": [
+        {
+          "id": "sub-1",
+          "name": "Deploy Hub",
+          "projectDescription": "Self-service deployment console",
+          "format": "paragraph",
+          "description": "Built the UI and API for safe progressive rollouts with automated health checks.",
+          "bullets": [],
+          "liveLink": "https://deploy.cloudscale.example.com"
+        }
+      ]
+    },
+    {
+      "id": "exp-full-2",
+      "company": "Dataflow Corp",
+      "position": "Senior Software Engineer",
+      "location": "Remote",
+      "startDate": "2016-05",
+      "endDate": "2019-12",
+      "current": false,
+      "format": "paragraph",
+      "bullets": [],
+      "description": "Maintained streaming ingestion pipelines processing 2M events per minute. Partnered with SRE on incident response playbooks and capacity planning."
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-full-1",
+      "institution": "University of Washington",
+      "degree": "M.S. Computer Science",
+      "startDate": "2014-09",
+      "endDate": "2016-06",
+      "description": "Thesis on distributed tracing for microservices."
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk-full-1",
+      "category": "Core",
+      "skills": ["Kubernetes", "Terraform", "TypeScript"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-full-1",
+      "name": "Observability Starter Kit",
+      "description": "Open templates for metrics, logs, and traces in greenfield services.",
+      "technologies": ["OpenTelemetry", "Grafana", "Prometheus"],
+      "links": [
+        {
+          "label": "Demo",
+          "liveUrl": "https://obs-kit.example.com/demo",
+          "githubUrl": "https://github.com/jordankim/obs-kit"
+        }
+      ],
+      "highlights": [
+        "Adopted by two internal platform guilds.",
+        "Documented golden signals per service type."
+      ],
+      "startDate": "2023-02",
+      "endDate": "2023-11"
+    }
+  ],
+  "languages": [
+    { "id": "lang-full-1", "name": "English", "level": "Native" },
+    { "id": "lang-full-2", "name": "Korean", "level": "Conversational" }
+  ],
+  "interests": [
+    { "id": "int-full-1", "name": "Ski touring" },
+    { "id": "int-full-2", "name": "Technical writing" }
+  ],
+  "certifications": [
+    {
+      "id": "cert-full-1",
+      "name": "Certified Kubernetes Administrator",
+      "issuer": "CNCF",
+      "date": "2022-08",
+      "url": "https://training.linuxfoundation.org/certification/cka/"
+    }
+  ],
+  "interestsFormat": "paragraph",
+  "interestsParagraph": "Continuous learning in platform engineering, technical writing, and mentoring early-career engineers through local meetups.",
+  "sectionLabels": {
+    "contact": "Contact",
+    "profile": "Executive Summary",
+    "experience": "Career History",
+    "education": "Academic Background",
+    "skills": "Technical Skills",
+    "projects": "Selected Work",
+    "languages": "Languages",
+    "interests": "Interests",
+    "certifications": "Credentials"
+  },
+  "sectionVisibility": {
+    "summary": true,
+    "experience": true,
+    "projects": true,
+    "skills": true,
+    "education": true,
+    "certifications": true,
+    "languages": true,
+    "interests": true
+  },
+  "coverLetter": {
+    "recipientName": "",
+    "recipientTitle": "",
+    "companyName": "",
+    "companyAddress": "",
+    "content": ""
+  }
+}

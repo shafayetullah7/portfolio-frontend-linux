@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 2,
+  "theme": "modern-split",
+  "personalInfo": {
+    "fullName": "Shafayet Ullah",
+    "jobTitle": "Software Engineer",
+    "email": "shafayet@example.com",
+    "phone": "",
+    "address": "Dhaka, Bangladesh",
+    "portfolioUrl": "https://www.example.com/portfolio/deep/nested/path/index.html",
+    "linkedinUrl": "https://linkedin.com/in/shafayet-ullah",
+    "githubUrl": "https://github.com/shafayet",
+    "summary": "Engineer building reliable systems with clear APIs."
+  },
+  "experience": [
+    {
+      "id": "exp-edge-1",
+      "company": "Acme Ltd",
+      "position": "Software Engineer",
+      "location": "Remote",
+      "startDate": "",
+      "endDate": "",
+      "current": true,
+      "format": "bullets",
+      "bullets": ["Shipped payment reconciliation service."],
+      "description": ""
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-edge-1",
+      "institution": "State University",
+      "degree": "B.Sc. Engineering",
+      "startDate": "",
+      "endDate": "",
+      "description": ""
+    }
+  ],
+  "skills": [
+    { "id": "sk-edge-1", "category": "Stack", "skills": ["Node.js", "PostgreSQL"] }
+  ],
+  "projects": [
+    {
+      "id": "proj-edge-1",
+      "name": "Edge Case Portal",
+      "description": "Demo project with long URLs and no dates.",
+      "technologies": ["Solid", "Tailwind"],
+      "links": [
+        {
+          "label": "App",
+          "liveUrl": "https://app.vendor.example.com/v2/tenant/abc/dashboard?tab=overview",
+          "githubUrl": "https://github.com/org/monorepo/tree/main/apps/portal"
+        }
+      ],
+      "highlights": ["Handled unicode in export filenames."],
+      "startDate": "",
+      "endDate": ""
+    }
+  ],
+  "languages": [{ "id": "lang-edge-1", "name": "Bengali", "level": "Native" }],
+  "interests": [{ "id": "int-edge-1", "name": "Chess" }],
+  "certifications": [
+    {
+      "id": "cert-edge-1",
+      "name": "Hidden Cert",
+      "issuer": "Test Board",
+      "date": "2021-01",
+      "url": ""
+    }
+  ],
+  "interestsFormat": "bullets",
+  "interestsParagraph": "",
+  "sectionLabels": {
+    "contact": "Contact",
+    "profile": "Profile",
+    "experience": "Work Experience",
+    "education": "Education and Training",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Language Skills",
+    "interests": "Learning & Interests",
+    "certifications": "Certifications"
+  },
+  "sectionVisibility": {
+    "summary": true,
+    "experience": true,
+    "projects": true,
+    "skills": true,
+    "education": true,
+    "certifications": false,
+    "languages": true,
+    "interests": true
+  },
+  "coverLetter": {
+    "recipientName": "",
+    "recipientTitle": "",
+    "companyName": "",
+    "companyAddress": "",
+    "content": ""
+  }
+}

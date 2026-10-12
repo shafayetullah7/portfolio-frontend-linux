@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "@fontsource-variable/jetbrains-mono";
 @import "./components/resume/resume.tokens.css";
+@import "./components/resume/modern-split/print.css";
 
 @theme {
   --color-bf-bg: #0a0a0a;
@@ -16,6 +17,13 @@
   --color-bf-warn: #f5a623;
 
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Modern Split resume — 2px smaller per role than classic (resume-builder) */
+  --text-resume-modern-display: calc(18pt - 2px);
+  --text-resume-modern-body: calc(11pt - 2px);
+  --text-resume-modern-meta: calc(10pt - 2px);
+  --text-resume-modern-section: calc(10pt - 2px);
+  --text-resume-modern-pill: calc(9pt - 2px);
 }
 
 @layer base {

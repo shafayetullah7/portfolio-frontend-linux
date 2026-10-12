@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 2,
+  "theme": "modern-split",
+  "personalInfo": {
+    "fullName": "Min Lee",
+    "jobTitle": "",
+    "email": "min.lee@example.com",
+    "phone": "",
+    "address": "",
+    "summary": "Backend engineer focused on APIs and data modeling."
+  },
+  "experience": [
+    {
+      "id": "exp-only",
+      "company": "Startup Co",
+      "position": "Backend Engineer",
+      "location": "",
+      "startDate": "2024-01",
+      "endDate": "",
+      "current": true,
+      "format": "bullets",
+      "bullets": ["Designed REST APIs for mobile clients."],
+      "description": ""
+    }
+  ],
+  "education": [],
+  "skills": [],
+  "projects": [],
+  "languages": [],
+  "interests": [],
+  "certifications": [],
+  "interestsFormat": "bullets",
+  "interestsParagraph": "",
+  "sectionLabels": {
+    "contact": "Contact",
+    "profile": "Profile",
+    "experience": "Work Experience",
+    "education": "Education and Training",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Language Skills",
+    "interests": "Learning & Interests",
+    "certifications": "Certifications"
+  },
+  "sectionVisibility": {
+    "summary": true,
+    "experience": true,
+    "projects": false,
+    "skills": false,
+    "education": false,
+    "certifications": false,
+    "languages": false,
+    "interests": false
+  },
+  "coverLetter": {
+    "recipientName": "",
+    "recipientTitle": "",
+    "companyName": "",
+    "companyAddress": "",
+    "content": ""
+  }
+}

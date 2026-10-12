@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 2,
+  "theme": "modern-split",
+  "personalInfo": {
+    "fullName": "Morgan Chen",
+    "jobTitle": "Principal Engineer",
+    "email": "morgan.chen@example.com",
+    "phone": "+1 (555) 440-7788",
+    "address": "San Francisco, CA",
+    "portfolioUrl": "https://morganchen.dev",
+    "linkedinUrl": "https://linkedin.com/in/morganchen",
+    "githubUrl": "https://github.com/morganchen",
+    "summary": "Principal engineer with fifteen years across infrastructure, backend, and frontend. Known for simplifying complex systems, improving on-call health, and delivering incremental migrations without downtime. This summary is intentionally verbose to stress layout and page breaks when combined with extensive experience and project sections below."
+  },
+  "experience": [
+    {
+      "id": "long-exp-1",
+      "company": "Horizon Tech",
+      "position": "Principal Engineer",
+      "location": "San Francisco, CA",
+      "startDate": "2019-04",
+      "endDate": "",
+      "current": true,
+      "format": "bullets",
+      "bullets": [
+        "Led multi-year migration from monolith to service-oriented architecture.",
+        "Defined SLOs and error budgets for top-tier customer journeys.",
+        "Reduced incident frequency by 45% through blameless reviews.",
+        "Built internal framework for safe schema changes across 200+ tables.",
+        "Partnered with security on zero-trust network rollout."
+      ],
+      "description": ""
+    },
+    {
+      "id": "long-exp-2",
+      "company": "Atlas Digital",
+      "position": "Staff Software Engineer",
+      "location": "Remote",
+      "startDate": "2015-01",
+      "endDate": "2019-03",
+      "current": false,
+      "format": "bullets",
+      "bullets": [
+        "Owned payments platform processing $1.2B annually.",
+        "Introduced feature flags for progressive delivery.",
+        "Mentored two teams on observability practices."
+      ],
+      "description": ""
+    },
+    {
+      "id": "long-exp-3",
+      "company": "Northstar Media",
+      "position": "Senior Software Engineer",
+      "location": "New York, NY",
+      "startDate": "2011-06",
+      "endDate": "2014-12",
+      "current": false,
+      "format": "bullets",
+      "bullets": [
+        "Scaled content API to 50k RPS with caching and CDN tuning.",
+        "Led rewrite of editorial workflow tools in React."
+      ],
+      "description": ""
+    },
+    {
+      "id": "long-exp-4",
+      "company": "Bluewave Consulting",
+      "position": "Software Engineer",
+      "location": "Boston, MA",
+      "startDate": "2008-09",
+      "endDate": "2011-05",
+      "current": false,
+      "format": "bullets",
+      "bullets": [
+        "Delivered client portals for healthcare and fintech verticals.",
+        "Standardized CI pipelines across consulting engagements."
+      ],
+      "description": ""
+    }
+  ],
+  "education": [
+    {
+      "id": "long-edu-1",
+      "institution": "MIT",
+      "degree": "S.B. Electrical Engineering and Computer Science",
+      "startDate": "2004-09",
+      "endDate": "2008-06",
+      "description": "Coursework in algorithms, computer systems, and distributed computing."
+    },
+    {
+      "id": "long-edu-2",
+      "institution": "Stanford Continuing Studies",
+      "degree": "Product Management Certificate",
+      "startDate": "2016-01",
+      "endDate": "2016-12",
+      "description": ""
+    }
+  ],
+  "skills": [
+    {
+      "id": "long-sk-1",
+      "category": "Languages",
+      "skills": ["TypeScript", "Java", "Python", "Go", "SQL"]
+    },
+    {
+      "id": "long-sk-2",
+      "category": "Infrastructure",
+      "skills": ["Kubernetes", "AWS", "Terraform", "Kafka", "PostgreSQL"]
+    },
+    {
+      "id": "long-sk-3",
+      "category": "Practices",
+      "skills": ["SRE", "Architecture reviews", "Technical writing"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "long-proj-1",
+      "name": "Reliability Dashboard",
+      "description": "Company-wide dashboard correlating deploys, incidents, and customer impact.",
+      "technologies": ["React", "GraphQL", "BigQuery"],
+      "links": [
+        {
+          "label": "Internal",
+          "liveUrl": "https://reliability.horizon.example.com",
+          "githubUrl": "https://github.com/horizon/reliability-dashboard"
+        }
+      ],
+      "highlights": [
+        "Adopted by all product lines within six months.",
+        "Surfaced deploy-induced regressions 30% faster."
+      ],
+      "startDate": "2020-06",
+      "endDate": "2021-03"
+    },
+    {
+      "id": "long-proj-2",
+      "name": "Checkout Modernization",
+      "description": "Incremental rewrite of checkout with feature parity and improved fraud signals.",
+      "technologies": ["Node.js", "Redis", "Stripe"],
+      "links": [
+        {
+          "label": "Case study",
+          "liveUrl": "https://morganchen.dev/work/checkout",
+          "githubUrl": ""
+        }
+      ],
+      "highlights": [
+        "Zero-downtime cutover over twelve weekly releases.",
+        "Reduced cart abandonment by 8%."
+      ],
+      "startDate": "2017-01",
+      "endDate": "2018-06"
+    },
+    {
+      "id": "long-proj-3",
+      "name": "Content CDN Toolkit",
+      "description": "Tooling for cache invalidation and asset versioning at scale.",
+      "technologies": ["Go", "CloudFront", "Lambda"],
+      "links": [{ "label": "OSS", "liveUrl": "", "githubUrl": "https://github.com/morganchen/cdn-toolkit" }],
+      "highlights": ["Open-sourced after internal adoption."],
+      "startDate": "2013-01",
+      "endDate": "2013-12"
+    }
+  ],
+  "languages": [
+    { "id": "long-lang-1", "name": "English", "level": "Native" },
+    { "id": "long-lang-2", "name": "Mandarin", "level": "Professional" }
+  ],
+  "interests": [
+    { "id": "long-int-1", "name": "Classical piano" },
+    { "id": "long-int-2", "name": "Cycling" },
+    { "id": "long-int-3", "name": "Technical mentorship" }
+  ],
+  "certifications": [
+    {
+      "id": "long-cert-1",
+      "name": "Google Professional Cloud Architect",
+      "issuer": "Google",
+      "date": "2020-11",
+      "url": "https://cloud.google.com/certification"
+    }
+  ],
+  "interestsFormat": "bullets",
+  "interestsParagraph": "",
+  "sectionLabels": {
+    "contact": "Contact",
+    "profile": "Profile",
+    "experience": "Work Experience",
+    "education": "Education and Training",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Language Skills",
+    "interests": "Learning & Interests",
+    "certifications": "Certifications"
+  },
+  "sectionVisibility": {
+    "summary": true,
+    "experience": true,
+    "projects": true,
+    "skills": true,
+    "education": true,
+    "certifications": true,
+    "languages": true,
+    "interests": true
+  },
+  "coverLetter": {
+    "recipientName": "",
+    "recipientTitle": "",
+    "companyName": "",
+    "companyAddress": "",
+    "content": ""
+  }
+}

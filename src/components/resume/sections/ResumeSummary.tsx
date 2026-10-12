@@ -1,15 +1,17 @@
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-import { ResumeSectionHeading } from "./ResumeSectionHeading";
+import {
+  ResumeSectionShell,
+  type ResumeSectionLayoutProps,
+} from "./ResumeSectionShell";
 
-interface ResumeSummaryProps {
+interface ResumeSummaryProps extends ResumeSectionLayoutProps {
   summary: ResumeDocument["personal"]["summary"];
 }
 
 export function ResumeSummary(props: ResumeSummaryProps) {
   return (
-    <section class="resume-section">
-      <ResumeSectionHeading title="Summary" />
+    <ResumeSectionShell title="Summary" hideHeading={props.hideHeading} bare={props.bare}>
       <p class="resume-summary">{props.summary}</p>
-    </section>
+    </ResumeSectionShell>
   );
 }

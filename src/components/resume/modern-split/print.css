@@ -1,0 +1,13 @@
+/* Modern Split print helpers (classic print rules stay in resume.tokens.css). */
+
+@media print {
+  .modern-split-doc {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

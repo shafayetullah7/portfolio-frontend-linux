@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 2,
+  "theme": "modern-split",
+  "personalInfo": {
+    "fullName": "Alex Rivera",
+    "jobTitle": "Senior Full-Stack Engineer",
+    "email": "alex.rivera@example.com",
+    "phone": "+1 (555) 201-3344",
+    "address": "Austin, TX",
+    "portfolioUrl": "https://alexrivera.dev",
+    "linkedinUrl": "https://linkedin.com/in/alexrivera",
+    "githubUrl": "https://github.com/alexrivera",
+    "summary": "Full-stack engineer with eight years building reliable web platforms. Focus on API design, developer experience, and measurable performance improvements."
+  },
+  "experience": [
+    {
+      "id": "exp-1",
+      "company": "Northline Systems",
+      "position": "Senior Full-Stack Engineer",
+      "location": "Austin, TX",
+      "startDate": "2021-03",
+      "endDate": "",
+      "current": true,
+      "format": "bullets",
+      "bullets": [
+        "Led redesign of billing APIs serving 120k monthly active users.",
+        "Reduced p95 latency by 38% through query tuning and caching.",
+        "Mentored four engineers on code review and release practices."
+      ],
+      "description": ""
+    },
+    {
+      "id": "exp-2",
+      "company": "Brightpath Labs",
+      "position": "Software Engineer",
+      "location": "Remote",
+      "startDate": "2017-06",
+      "endDate": "2021-02",
+      "current": false,
+      "format": "bullets",
+      "bullets": [
+        "Shipped customer dashboard used by enterprise accounts.",
+        "Introduced contract tests between frontend and BFF services."
+      ],
+      "description": ""
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1",
+      "institution": "University of Texas at Austin",
+      "degree": "B.S. Computer Science",
+      "startDate": "2013-09",
+      "endDate": "2017-05",
+      "description": "Focus on distributed systems and software engineering."
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk-1",
+      "category": "Languages",
+      "skills": ["TypeScript", "Go", "Python"]
+    },
+    {
+      "id": "sk-2",
+      "category": "Platforms",
+      "skills": ["PostgreSQL", "Redis", "AWS"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-1",
+      "name": "Usage Analytics Portal",
+      "description": "Internal analytics portal for product and support teams with role-based views.",
+      "technologies": ["React", "NestJS", "PostgreSQL"],
+      "links": [
+        {
+          "label": "Live",
+          "liveUrl": "https://analytics.northline.example.com",
+          "githubUrl": "https://github.com/northline/usage-portal"
+        }
+      ],
+      "highlights": [
+        "Cut report generation time from minutes to seconds.",
+        "Adopted by three departments within the first quarter."
+      ],
+      "startDate": "2022-01",
+      "endDate": "2022-09"
+    }
+  ],
+  "languages": [
+    { "id": "lang-1", "name": "English", "level": "Native" },
+    { "id": "lang-2", "name": "Spanish", "level": "Professional" }
+  ],
+  "interests": [
+    { "id": "int-1", "name": "Open-source tooling" },
+    { "id": "int-2", "name": "Trail running" }
+  ],
+  "certifications": [
+    {
+      "id": "cert-1",
+      "name": "AWS Solutions Architect Associate",
+      "issuer": "Amazon Web Services",
+      "date": "2023-04",
+      "url": "https://www.credly.com/badges/example"
+    }
+  ],
+  "interestsFormat": "bullets",
+  "interestsParagraph": "",
+  "sectionLabels": {
+    "contact": "Contact",
+    "profile": "Profile",
+    "experience": "Work Experience",
+    "education": "Education and Training",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Language Skills",
+    "interests": "Learning & Interests",
+    "certifications": "Certifications"
+  },
+  "sectionVisibility": {
+    "summary": true,
+    "experience": true,
+    "projects": true,
+    "skills": true,
+    "education": true,
+    "certifications": true,
+    "languages": true,
+    "interests": true
+  },
+  "coverLetter": {
+    "recipientName": "",
+    "recipientTitle": "",
+    "companyName": "",
+    "companyAddress": "",
+    "content": ""
+  }
+}

@@ -1,9 +1,12 @@
 import { For, Show } from "solid-js";
 import { formatResumeLinkLabel } from "~/lib/resume/format-resume-link-label";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-import { ResumeSectionHeading } from "./ResumeSectionHeading";
+import {
+  ResumeSectionShell,
+  type ResumeSectionLayoutProps,
+} from "./ResumeSectionShell";
 
-interface ResumeContactProps {
+interface ResumeContactProps extends ResumeSectionLayoutProps {
   personal: ResumeDocument["personal"];
 }
 
@@ -11,8 +14,7 @@ export function ResumeContact(props: ResumeContactProps) {
   const { email, phone, location, links } = props.personal;
 
   return (
-    <section class="resume-section">
-      <ResumeSectionHeading title="Contact" />
+    <ResumeSectionShell title="Contact" hideHeading={props.hideHeading} bare={props.bare}>
       <ul class="resume-contact-list">
         <Show when={email}>
           <li>
@@ -43,6 +45,6 @@ export function ResumeContact(props: ResumeContactProps) {
           )}
         </For>
       </ul>
-    </section>
+    </ResumeSectionShell>
   );
 }

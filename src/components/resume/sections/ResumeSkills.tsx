@@ -1,15 +1,17 @@
 import { For } from "solid-js";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-import { ResumeSectionHeading } from "./ResumeSectionHeading";
+import {
+  ResumeSectionShell,
+  type ResumeSectionLayoutProps,
+} from "./ResumeSectionShell";
 
-interface ResumeSkillsProps {
+interface ResumeSkillsProps extends ResumeSectionLayoutProps {
   skills: ResumeDocument["skills"];
 }
 
 export function ResumeSkills(props: ResumeSkillsProps) {
   return (
-    <section class="resume-section">
-      <ResumeSectionHeading title="Skills" />
+    <ResumeSectionShell title="Skills" hideHeading={props.hideHeading} bare={props.bare}>
       <For each={props.skills}>
         {(group) => (
           <div class="resume-skill-group">
@@ -22,6 +24,6 @@ export function ResumeSkills(props: ResumeSkillsProps) {
           </div>
         )}
       </For>
-    </section>
+    </ResumeSectionShell>
   );
 }
