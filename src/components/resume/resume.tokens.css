@@ -335,9 +335,16 @@
 }
 
 @media print {
+  /* Zero page margin leaves no room for the browser's date/title/URL header and footer. */
   @page {
     size: A4;
-    margin: 10mm;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .site-chrome,
@@ -369,10 +376,15 @@
     font-family: var(--resume-font-print);
   }
 
+  /* Page spacing lives here instead of @page; clone repeats it on every printed page. */
   .resume-doc__page {
     max-width: none;
     width: 100%;
     box-shadow: none;
+    padding: 10mm;
+    box-sizing: border-box;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 
   .resume-doc__split {
