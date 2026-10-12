@@ -1,28 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { renderToString } from "solid-js/web";
 import ClassicResume from "~/components/resume/ClassicResume";
-import type { ResumeDocument } from "~/schemas/resume-document.schema";
+import { minimalResumeDocument } from "~/lib/resume/minimal-resume-document";
 
-const minimalClassicDoc: ResumeDocument = {
-  schemaVersion: 1,
-  generatedAt: "2026-01-01T00:00:00.000Z",
+const minimalClassicDoc = {
+  ...minimalResumeDocument,
   personal: {
+    ...minimalResumeDocument.personal,
     fullName: "Alex Classic",
-    jobTitle: "Engineer",
     summary: "Summary line for snapshot.",
     email: "alex@example.com",
-    phone: null,
-    location: null,
-    links: [],
   },
-  experience: [],
-  education: [],
-  skills: [],
-  projects: [],
-  languages: [],
-  interests: [],
-  certifications: [],
   meta: {
+    ...minimalResumeDocument.meta,
     sectionVisibility: {
       summary: true,
       experience: true,
@@ -49,7 +39,7 @@ describe("ClassicResume Q8 regression", () => {
   it("DOM text snapshot unchanged", () => {
     const html = renderToString(() => <ClassicResume doc={minimalClassicDoc} />);
     expect(domTextFromHtml(html)).toMatchInlineSnapshot(
-      `"Alex Classic Engineer Contact alex@example.com Summary Summary line for snapshot. Experience Projects Skills Education Certifications Languages Interests"`,
+      `"Alex Classic Engineer Contact alex@example.com Summary Summary line for snapshot. Experience Projects Skills Languages TypeScript Education Certifications Languages Interests"`,
     );
   });
 });

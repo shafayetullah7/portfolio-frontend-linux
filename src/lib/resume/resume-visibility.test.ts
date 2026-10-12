@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
+import { minimalResumeDocument } from "./minimal-resume-document";
 import {
   hasResumeContact,
   hasResumeIdentity,
@@ -7,48 +8,18 @@ import {
 } from "./resume-visibility";
 
 function minimalDoc(overrides: Partial<ResumeDocument> = {}): ResumeDocument {
-  return {
-    schemaVersion: 1,
-    generatedAt: "2026-01-01T00:00:00.000Z",
-    personal: {
-      fullName: "Ada Lovelace",
-      jobTitle: "Engineer",
-      summary: "",
-      email: null,
-      phone: null,
-      location: null,
-      links: [],
-    },
-    skills: [],
-    experience: [],
-    projects: [],
-    education: [],
-    certifications: [],
-    languages: [],
-    interests: [],
-    meta: {
-      sectionVisibility: {
-        summary: false,
-        experience: false,
-        projects: false,
-        skills: false,
-        education: false,
-        certifications: false,
-        languages: false,
-        interests: false,
-      },
-    },
-    ...overrides,
-  };
+  return { ...minimalResumeDocument, ...overrides };
 }
 
 describe("isResumeSectionVisible", () => {
   it("returns true only when flag is true", () => {
     const doc = minimalDoc({
       meta: {
+        ...minimalResumeDocument.meta,
         sectionVisibility: {
-          ...minimalDoc().meta.sectionVisibility,
+          ...minimalResumeDocument.meta.sectionVisibility,
           skills: true,
+          summary: false,
         },
       },
     });
@@ -59,7 +30,13 @@ describe("isResumeSectionVisible", () => {
 
 describe("hasResumeContact", () => {
   it("is false when all contact fields empty", () => {
-    expect(hasResumeContact(minimalDoc())).toBe(false);
+    expect(
+      hasResumeContact(
+        minimalDoc({
+          personal: { ...minimalResumeDocument.personal, email: null },
+        }),
+      ),
+    ).toBe(false);
   });
 
   it("is true when email present", () => {

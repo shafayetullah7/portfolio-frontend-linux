@@ -12,12 +12,13 @@ interface InterestsSectionProps {
 }
 
 export function InterestsSection(props: InterestsSectionProps) {
-  if (!props.visible || props.interests.length === 0) return null;
+  const items = () => props.interests.items;
+  if (!props.visible || items().length === 0) return null;
 
   return (
     <ModernSplitSection label={props.label} tokens={props.tokens}>
       <div class="flex flex-wrap gap-1">
-        <For each={props.interests}>
+        <For each={items()}>
           {(interest) => <Pill tokens={props.tokens}>{interest.name}</Pill>}
         </For>
       </div>

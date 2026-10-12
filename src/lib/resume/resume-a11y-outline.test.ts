@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
+import { minimalResumeDocument } from "./minimal-resume-document";
 import {
   assertValidResumeHeadingOrder,
   buildModernSplitA11yOutline,
@@ -7,18 +8,11 @@ import {
 } from "./resume-a11y-outline";
 
 const minimalDoc: ResumeDocument = {
-  schemaVersion: 1,
-  generatedAt: "2026-01-01T00:00:00.000Z",
+  ...minimalResumeDocument,
   personal: {
-    fullName: "Ada Lovelace",
-    jobTitle: "Engineer",
+    ...minimalResumeDocument.personal,
     summary: "Short summary.",
-    email: "ada@example.com",
-    phone: null,
-    location: null,
-    links: [],
   },
-  skills: [],
   experience: [
     {
       id: "e1",
@@ -28,24 +22,18 @@ const minimalDoc: ResumeDocument = {
       startDate: "2020-01-01",
       endDate: null,
       current: true,
+      format: "bullets",
+      paragraph: "",
       bullets: ["Built APIs"],
+      experienceProjects: [],
     },
   ],
-  projects: [],
-  education: [],
-  certifications: [],
-  languages: [],
-  interests: [],
   meta: {
+    ...minimalResumeDocument.meta,
     sectionVisibility: {
+      ...minimalResumeDocument.meta.sectionVisibility,
       summary: true,
       experience: true,
-      projects: false,
-      skills: false,
-      education: false,
-      certifications: false,
-      languages: false,
-      interests: false,
     },
   },
 };

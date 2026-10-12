@@ -1,15 +1,8 @@
-/** Browser tab / save-as-PDF filename from profile full name. */
+/** Browser tab / save-as-PDF filename from profile full name (builder G-C06). */
+export function sanitizeResumeFilename(name: string): string {
+  return name.trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-") || "resume";
+}
+
 export function formatResumeDocumentTitle(fullName: string): string {
-  const trimmed = fullName.trim();
-  if (!trimmed) return "Resume";
-
-  const slug = trimmed
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .replace(/-{2,}/g, "-");
-
-  if (!slug) return "Resume";
-  return `${slug}-Resume`;
+  return `${sanitizeResumeFilename(fullName)}-resume`;
 }

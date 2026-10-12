@@ -13,7 +13,7 @@ export function ResumeInterests(props: ResumeInterestsProps) {
   return (
     <ResumeSectionShell title="Interests" hideHeading={props.hideHeading} bare={props.bare}>
       <ul class="resume-chip-list">
-        <For each={props.interests}>
+        <For each={props.interests.items}>
           {(interest) => <li class="resume-chip">{interest.name}</li>}
         </For>
       </ul>

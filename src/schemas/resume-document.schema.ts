@@ -18,6 +18,20 @@ const resumeLinkSchema = z.object({
   kind: resumeLinkKindSchema,
 });
 
+const resumeExperienceFormatSchema = z.enum(["bullets", "paragraph"]);
+
+const sectionLabelsSchema = z.object({
+  contact: z.string(),
+  profile: z.string(),
+  experience: z.string(),
+  education: z.string(),
+  skills: z.string(),
+  projects: z.string(),
+  languages: z.string(),
+  interests: z.string(),
+  certifications: z.string(),
+});
+
 const sectionVisibilitySchema = z.object({
   summary: z.boolean(),
   experience: z.boolean(),
@@ -29,8 +43,18 @@ const sectionVisibilitySchema = z.object({
   interests: z.boolean(),
 });
 
+const experienceProjectSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  projectDescription: z.string(),
+  format: resumeExperienceFormatSchema,
+  description: z.string(),
+  bullets: z.array(z.string()),
+  liveLink: z.string().nullable(),
+});
+
 export const resumeDocumentSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   generatedAt: z.string(),
   personal: z.object({
     fullName: z.string(),
@@ -38,8 +62,16 @@ export const resumeDocumentSchema = z.object({
     summary: z.string(),
     email: z.string().nullable(),
     phone: z.string().nullable(),
+    whatsapp: z.string().nullable(),
     location: z.string().nullable(),
     links: z.array(resumeLinkSchema),
+    pii: z
+      .object({
+        dateOfBirth: z.string().nullable(),
+        nationality: z.string().nullable(),
+        gender: z.string().nullable(),
+      })
+      .nullable(),
   }),
   skills: z.array(
     z.object({
@@ -56,7 +88,10 @@ export const resumeDocumentSchema = z.object({
       startDate: z.string(),
       endDate: z.string().nullable(),
       current: z.boolean(),
+      format: resumeExperienceFormatSchema,
+      paragraph: z.string(),
       bullets: z.array(z.string()),
+      experienceProjects: z.array(experienceProjectSchema),
     }),
   ),
   projects: z.array(
@@ -66,14 +101,13 @@ export const resumeDocumentSchema = z.object({
       description: z.string(),
       technologies: z.array(z.string()),
       highlights: z.array(z.string()),
-      startDate: z.string().nullable().optional(),
-      endDate: z.string().nullable().optional(),
+      startDate: z.string().nullable(),
+      endDate: z.string().nullable(),
       links: z.array(
         z.object({
           label: z.string(),
           liveUrl: z.string().nullable().optional(),
           githubUrl: z.string().nullable().optional(),
-          /** Legacy flat link (Classic theme); Modern Split uses liveUrl/githubUrl. */
           url: z.string().optional(),
         }),
       ),
@@ -105,13 +139,18 @@ export const resumeDocumentSchema = z.object({
       level: z.string(),
     }),
   ),
-  interests: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-    }),
-  ),
+  interests: z.object({
+    format: resumeExperienceFormatSchema,
+    paragraph: z.string(),
+    items: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      }),
+    ),
+  }),
   meta: z.object({
+    sectionLabels: sectionLabelsSchema,
     sectionVisibility: sectionVisibilitySchema,
   }),
 });

@@ -1,54 +1,24 @@
 import { describe, expect, it } from "vitest";
+import { minimalResumeDocument } from "~/lib/resume/minimal-resume-document";
 import { resumeDocumentSchema } from "./resume-document.schema";
-
-const validMinimal = {
-  schemaVersion: 1 as const,
-  generatedAt: "2026-01-01T00:00:00.000Z",
-  personal: {
-    fullName: "Test",
-    jobTitle: "Dev",
-    summary: "",
-    email: null,
-    phone: null,
-    location: null,
-    links: [],
-  },
-  skills: [],
-  experience: [],
-  projects: [],
-  education: [],
-  certifications: [],
-  languages: [],
-  interests: [],
-  meta: {
-    sectionVisibility: {
-      summary: false,
-      experience: false,
-      projects: false,
-      skills: false,
-      education: false,
-      certifications: false,
-      languages: false,
-      interests: false,
-    },
-  },
-};
 
 describe("resumeDocumentSchema", () => {
   it("accepts a minimal valid document", () => {
-    expect(resumeDocumentSchema.safeParse(validMinimal).success).toBe(true);
+    expect(resumeDocumentSchema.safeParse(minimalResumeDocument).success).toBe(
+      true,
+    );
   });
 
   it("rejects wrong schemaVersion", () => {
     const result = resumeDocumentSchema.safeParse({
-      ...validMinimal,
-      schemaVersion: 2,
+      ...minimalResumeDocument,
+      schemaVersion: 1,
     });
     expect(result.success).toBe(false);
   });
 
   it("rejects missing personal", () => {
-    const { personal: _p, ...rest } = validMinimal;
+    const { personal: _p, ...rest } = minimalResumeDocument;
     const result = resumeDocumentSchema.safeParse(rest);
     expect(result.success).toBe(false);
   });

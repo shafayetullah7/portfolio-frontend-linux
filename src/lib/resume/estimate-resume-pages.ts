@@ -19,7 +19,10 @@ function countSidebarLines(doc: ResumeDocument): number {
   n += doc.education.length * 2;
   n += doc.certifications.length;
   n += doc.languages.length;
-  n += doc.interests.length;
+  n += doc.interests.items.length;
+  if (doc.interests.format === "paragraph" && doc.interests.paragraph.trim()) {
+    n += 3;
+  }
   if (doc.personal.email) n += 1;
   if (doc.personal.phone) n += 1;
   if (doc.personal.location) n += 1;

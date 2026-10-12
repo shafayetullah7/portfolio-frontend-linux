@@ -1,30 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { estimateResumePages } from "./estimate-resume-pages";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
-
-const baseVisibility = {
-  summary: true,
-  experience: true,
-  projects: true,
-  skills: true,
-  education: true,
-  certifications: true,
-  languages: true,
-  interests: true,
-};
+import { minimalResumeDocument } from "./minimal-resume-document";
 
 function minimalDoc(): ResumeDocument {
   return {
-    schemaVersion: 1,
+    ...minimalResumeDocument,
     generatedAt: new Date().toISOString(),
     personal: {
+      ...minimalResumeDocument.personal,
       fullName: "Test User",
-      jobTitle: "Engineer",
       summary: "Short summary.",
       email: "a@b.com",
-      phone: null,
-      location: null,
-      links: [],
     },
     skills: [{ category: "lang", skills: ["Go"] }],
     experience: [
@@ -36,15 +23,25 @@ function minimalDoc(): ResumeDocument {
         startDate: "2020-01-01",
         endDate: null,
         current: true,
+        format: "bullets",
+        paragraph: "",
         bullets: ["Did things"],
+        experienceProjects: [],
       },
     ],
-    projects: [],
-    education: [],
-    certifications: [],
-    languages: [],
-    interests: [],
-    meta: { sectionVisibility: baseVisibility },
+    meta: {
+      ...minimalResumeDocument.meta,
+      sectionVisibility: {
+        summary: true,
+        experience: true,
+        projects: true,
+        skills: true,
+        education: true,
+        certifications: true,
+        languages: true,
+        interests: true,
+      },
+    },
   };
 }
 
@@ -63,7 +60,10 @@ describe("estimateResumePages", () => {
       startDate: "2018-01-01",
       endDate: "2020-01-01",
       current: false,
+      format: "bullets" as const,
+      paragraph: "",
       bullets: ["a", "b", "c", "d", "e"],
+      experienceProjects: [],
     }));
     bloated.projects = Array.from({ length: 5 }, (_, i) => ({
       id: String(i),
@@ -71,6 +71,8 @@ describe("estimateResumePages", () => {
       description: "x",
       technologies: ["Go"],
       highlights: ["h1", "h2", "h3"],
+      startDate: null,
+      endDate: null,
       links: [],
     }));
     bloated.education = Array.from({ length: 3 }, (_, i) => ({
