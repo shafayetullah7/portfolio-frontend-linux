@@ -1,4 +1,5 @@
-import { For, Show } from "solid-js";
+import { For, Show, type JSX } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import { getHostname } from "~/lib/resume/get-hostname";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
 import {
@@ -37,9 +38,9 @@ export function ContactBlock(props: ContactBlockProps) {
 
   const pii = () => personal.pii;
 
-  const renderIcon = (icon: () => ReturnType<typeof MailIcon>) => (
+  const renderIcon = (icon: JSX.Element) => (
     <Show when={tokens.showIcons}>
-      <span class="shrink-0" style={{ color: tokens.accent }}>{icon()}</span>
+      <span class="shrink-0" style={{ color: tokens.accent }}>{icon}</span>
     </Show>
   );
 
@@ -48,7 +49,7 @@ export function ContactBlock(props: ContactBlockProps) {
       <div class={containerClass}>
         <Show when={personal.email}>
           <div class={itemClass}>
-            {renderIcon(() => <MailIcon size={CONTACT_ICON_SIZE} />)}
+            {renderIcon(<MailIcon size={CONTACT_ICON_SIZE} />)}
             <a href={`mailto:${personal.email}`} class={linkClass()} style={linkStyle()}>
               {personal.email}
             </a>
@@ -56,19 +57,19 @@ export function ContactBlock(props: ContactBlockProps) {
         </Show>
         <Show when={personal.phone}>
           <div class={itemClass}>
-            {renderIcon(() => <PhoneIcon size={CONTACT_ICON_SIZE} />)}
+            {renderIcon(<PhoneIcon size={CONTACT_ICON_SIZE} />)}
             <span class={typography().meta}>{personal.phone}</span>
           </div>
         </Show>
         <Show when={personal.whatsapp}>
           <div class={itemClass}>
-            {renderIcon(() => <WhatsAppIcon size={CONTACT_ICON_SIZE} />)}
+            {renderIcon(<WhatsAppIcon size={CONTACT_ICON_SIZE} />)}
             <span class={typography().meta}>{personal.whatsapp}</span>
           </div>
         </Show>
         <Show when={personal.location}>
           <div class={itemClass}>
-            {renderIcon(() => <MapPinIcon size={CONTACT_ICON_SIZE} />)}
+            {renderIcon(<MapPinIcon size={CONTACT_ICON_SIZE} />)}
             <span class={typography().meta}>{personal.location}</span>
           </div>
         </Show>
@@ -84,7 +85,7 @@ export function ContactBlock(props: ContactBlockProps) {
                     : GlobeIcon;
             return (
               <div class={itemClass}>
-                {renderIcon(() => <Icon size={CONTACT_ICON_SIZE} />)}
+                {renderIcon(<Dynamic component={Icon} size={CONTACT_ICON_SIZE} />)}
                 <a
                   href={link.url}
                   target="_blank"
