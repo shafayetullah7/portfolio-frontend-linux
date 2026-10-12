@@ -1,6 +1,5 @@
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
 import { isResumeSectionVisible } from "~/lib/resume/resume-visibility";
-import { MODERN_SPLIT_SECTION_LABELS } from "./section-labels";
 import { getSidebarTokens, modernSplitTokens } from "./tokens";
 import { CertificationsSection } from "./sections/CertificationsSection";
 import { EducationSection } from "./sections/EducationSection";
@@ -21,6 +20,7 @@ interface ModernSplitDocumentProps {
 
 export default function ModernSplitDocument(props: ModernSplitDocumentProps) {
   const doc = () => props.doc;
+  const labels = () => doc().meta.sectionLabels;
   const tokens = modernSplitTokens;
   const sidebarTokens = () => getSidebarTokens(tokens);
   const vis = (key: keyof ResumeDocument["meta"]["sectionVisibility"]) =>
@@ -39,31 +39,31 @@ export default function ModernSplitDocument(props: ModernSplitDocumentProps) {
 
           <SkillsSection
             skills={doc().skills}
-            label={MODERN_SPLIT_SECTION_LABELS.skills}
+            label={labels().skills}
             tokens={sidebarTokens()}
             visible={vis("skills")}
           />
           <EducationSection
             education={doc().education}
-            label={MODERN_SPLIT_SECTION_LABELS.education}
+            label={labels().education}
             tokens={sidebarTokens()}
             visible={vis("education")}
           />
           <CertificationsSection
             certifications={doc().certifications}
-            label={MODERN_SPLIT_SECTION_LABELS.certifications}
+            label={labels().certifications}
             tokens={sidebarTokens()}
             visible={vis("certifications")}
           />
           <LanguagesSection
             languages={doc().languages}
-            label={MODERN_SPLIT_SECTION_LABELS.languages}
+            label={labels().languages}
             tokens={sidebarTokens()}
             visible={vis("languages")}
           />
           <InterestsSection
             interests={doc().interests}
-            label={MODERN_SPLIT_SECTION_LABELS.interests}
+            label={labels().interests}
             tokens={sidebarTokens()}
             visible={vis("interests")}
           />
@@ -72,19 +72,19 @@ export default function ModernSplitDocument(props: ModernSplitDocumentProps) {
         <div class={`w-2/3 ${tokens.padding} flex flex-col`}>
           <SummarySection
             summary={doc().personal.summary}
-            label={MODERN_SPLIT_SECTION_LABELS.profile}
+            label={labels().profile}
             tokens={tokens}
             visible={vis("summary")}
           />
           <ExperienceSection
             experience={doc().experience}
-            label={MODERN_SPLIT_SECTION_LABELS.experience}
+            label={labels().experience}
             tokens={tokens}
             visible={vis("experience")}
           />
           <ProjectsSection
             projects={doc().projects}
-            label={MODERN_SPLIT_SECTION_LABELS.projects}
+            label={labels().projects}
             tokens={tokens}
             visible={vis("projects")}
           />

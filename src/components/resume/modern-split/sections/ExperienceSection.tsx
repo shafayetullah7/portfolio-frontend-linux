@@ -3,6 +3,7 @@ import type { ResumeDocument } from "~/schemas/resume-document.schema";
 import { formatModernSplitDateRange } from "../format-date";
 import { ModernSplitSection } from "../ModernSplitSection";
 import type { ThemeTokens } from "../tokens";
+import { ExperienceProjectEntry } from "./ExperienceProjectEntry";
 
 interface ExperienceSectionProps {
   experience: ResumeDocument["experience"];
@@ -44,7 +45,14 @@ export function ExperienceSection(props: ExperienceSectionProps) {
                   )}
                 </span>
               </div>
-              <Show when={exp.bullets.length > 0}>
+              <Show when={exp.format === "paragraph" && exp.paragraph}>
+                <p
+                  class={`${props.tokens.typography.body} text-gray-700 mt-1 whitespace-pre-wrap leading-snug`}
+                >
+                  {exp.paragraph}
+                </p>
+              </Show>
+              <Show when={exp.format === "bullets" && exp.bullets.length > 0}>
                 <ul
                   class={`${props.tokens.typography.body} text-gray-700 list-disc list-outside ml-4 mt-1 leading-snug`}
                 >
@@ -52,6 +60,15 @@ export function ExperienceSection(props: ExperienceSectionProps) {
                     {(bullet) => (bullet ? <li>{bullet}</li> : null)}
                   </For>
                 </ul>
+              </Show>
+              <Show when={exp.experienceProjects.length > 0}>
+                <div class="mt-2 ml-2 border-l border-gray-300 pl-2">
+                  <For each={exp.experienceProjects}>
+                    {(project) => (
+                      <ExperienceProjectEntry project={project} tokens={props.tokens} />
+                    )}
+                  </For>
+                </div>
               </Show>
             </div>
           )}

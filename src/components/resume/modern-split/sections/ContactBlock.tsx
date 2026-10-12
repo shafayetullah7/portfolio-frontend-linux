@@ -9,6 +9,7 @@ import {
   MailIcon,
   MapPinIcon,
   PhoneIcon,
+  WhatsAppIcon,
 } from "../icons";
 import type { ThemeTokens } from "../tokens";
 
@@ -34,6 +35,8 @@ export function ContactBlock(props: ContactBlockProps) {
       personal.links.filter((l) => l.kind === kind),
     );
 
+  const pii = () => personal.pii;
+
   const renderIcon = (icon: () => ReturnType<typeof MailIcon>) => (
     <Show when={tokens.showIcons}>
       <span class="shrink-0" style={{ color: tokens.accent }}>{icon()}</span>
@@ -41,53 +44,81 @@ export function ContactBlock(props: ContactBlockProps) {
   );
 
   return (
-    <div class={containerClass}>
-      <Show when={personal.email}>
-        <div class={itemClass}>
-          {renderIcon(() => <MailIcon size={CONTACT_ICON_SIZE} />)}
-          <a href={`mailto:${personal.email}`} class={linkClass()} style={linkStyle()}>
-            {personal.email}
-          </a>
+    <>
+      <div class={containerClass}>
+        <Show when={personal.email}>
+          <div class={itemClass}>
+            {renderIcon(() => <MailIcon size={CONTACT_ICON_SIZE} />)}
+            <a href={`mailto:${personal.email}`} class={linkClass()} style={linkStyle()}>
+              {personal.email}
+            </a>
+          </div>
+        </Show>
+        <Show when={personal.phone}>
+          <div class={itemClass}>
+            {renderIcon(() => <PhoneIcon size={CONTACT_ICON_SIZE} />)}
+            <span class={typography().meta}>{personal.phone}</span>
+          </div>
+        </Show>
+        <Show when={personal.whatsapp}>
+          <div class={itemClass}>
+            {renderIcon(() => <WhatsAppIcon size={CONTACT_ICON_SIZE} />)}
+            <span class={typography().meta}>{personal.whatsapp}</span>
+          </div>
+        </Show>
+        <Show when={personal.location}>
+          <div class={itemClass}>
+            {renderIcon(() => <MapPinIcon size={CONTACT_ICON_SIZE} />)}
+            <span class={typography().meta}>{personal.location}</span>
+          </div>
+        </Show>
+        <For each={orderedLinks()}>
+          {(link) => {
+            const Icon =
+              link.kind === "linkedin"
+                ? LinkedInIcon
+                : link.kind === "github"
+                  ? GitHubIcon
+                  : link.kind === "gitlab"
+                    ? GitLabIcon
+                    : GlobeIcon;
+            return (
+              <div class={itemClass}>
+                {renderIcon(() => <Icon size={CONTACT_ICON_SIZE} />)}
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={linkClass()}
+                  style={linkStyle()}
+                >
+                  {getHostname(link.url)}
+                </a>
+              </div>
+            );
+          }}
+        </For>
+      </div>
+      <Show
+        when={
+          pii() &&
+          (pii()!.dateOfBirth || pii()!.nationality || pii()!.gender)
+        }
+      >
+        <div
+          class={`flex flex-wrap gap-x-4 gap-y-0.5 mt-1 text-gray-500 ${typography().meta}`}
+        >
+          <Show when={pii()!.dateOfBirth}>
+            <span>DOB: {pii()!.dateOfBirth}</span>
+          </Show>
+          <Show when={pii()!.nationality}>
+            <span>Nationality: {pii()!.nationality}</span>
+          </Show>
+          <Show when={pii()!.gender}>
+            <span>Gender: {pii()!.gender}</span>
+          </Show>
         </div>
       </Show>
-      <Show when={personal.phone}>
-        <div class={itemClass}>
-          {renderIcon(() => <PhoneIcon size={CONTACT_ICON_SIZE} />)}
-          <span class={typography().meta}>{personal.phone}</span>
-        </div>
-      </Show>
-      <Show when={personal.location}>
-        <div class={itemClass}>
-          {renderIcon(() => <MapPinIcon size={CONTACT_ICON_SIZE} />)}
-          <span class={typography().meta}>{personal.location}</span>
-        </div>
-      </Show>
-      <For each={orderedLinks()}>
-        {(link) => {
-          const Icon =
-            link.kind === "linkedin"
-              ? LinkedInIcon
-              : link.kind === "github"
-                ? GitHubIcon
-                : link.kind === "gitlab"
-                  ? GitLabIcon
-                  : GlobeIcon;
-          return (
-            <div class={itemClass}>
-              {renderIcon(() => <Icon size={CONTACT_ICON_SIZE} />)}
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={linkClass()}
-                style={linkStyle()}
-              >
-                {getHostname(link.url)}
-              </a>
-            </div>
-          );
-        }}
-      </For>
-    </div>
+    </>
   );
 }

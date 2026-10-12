@@ -1,4 +1,3 @@
-import { MODERN_SPLIT_SECTION_LABELS } from "~/components/resume/modern-split/section-labels";
 import type { ResumeDocument } from "~/schemas/resume-document.schema";
 import { hasResumeContact, isResumeSectionVisible } from "./resume-visibility";
 
@@ -52,33 +51,34 @@ export function buildResumeA11yOutline(doc: ResumeDocument): ResumeA11yOutlineEn
 
 /** Modern Split: section h2 only (D9); no Contact heading; no per-entry h3. */
 export function buildModernSplitA11yOutline(doc: ResumeDocument): ResumeA11yOutlineEntry[] {
+  const labels = doc.meta.sectionLabels;
   const outline: ResumeA11yOutlineEntry[] = [
     { level: 1, text: doc.personal.fullName },
   ];
 
   if (isResumeSectionVisible(doc, "skills")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.skills });
+    outline.push({ level: 2, text: labels.skills });
   }
   if (isResumeSectionVisible(doc, "education")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.education });
+    outline.push({ level: 2, text: labels.education });
   }
   if (isResumeSectionVisible(doc, "certifications")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.certifications });
+    outline.push({ level: 2, text: labels.certifications });
   }
   if (isResumeSectionVisible(doc, "languages")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.languages });
+    outline.push({ level: 2, text: labels.languages });
   }
   if (isResumeSectionVisible(doc, "interests")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.interests });
+    outline.push({ level: 2, text: labels.interests });
   }
   if (isResumeSectionVisible(doc, "summary")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.profile });
+    outline.push({ level: 2, text: labels.profile });
   }
   if (isResumeSectionVisible(doc, "experience")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.experience });
+    outline.push({ level: 2, text: labels.experience });
   }
   if (isResumeSectionVisible(doc, "projects")) {
-    outline.push({ level: 2, text: MODERN_SPLIT_SECTION_LABELS.projects });
+    outline.push({ level: 2, text: labels.projects });
   }
 
   return outline;
