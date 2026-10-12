@@ -20,8 +20,10 @@ Ensure the API allows this origin (`localhost:4012` in non-prod, or set `FRONTEN
 
 | Command | Purpose |
 |---------|---------|
-| `pnpm dev` | Vite dev server (port 4012) |
-| `pnpm build` | Production build |
+| `pnpm dev` | Vite dev server (port **4012**, from `PORT` in `.env`) |
+| `pnpm build` | Production build (output under `.output/`) |
+| `pnpm start` | Run Nitro production server after build (same **4012** when `PORT=4012` in `.env`) |
+| `pnpm preview` | Vite preview of the client build (port **4012** from `vite.config.ts`) |
 | `pnpm typecheck` | `tsc --noEmit` |
 
 ## Content & screenshots

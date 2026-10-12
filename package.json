@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "vite start",
+    "start": "node --env-file-if-exists=.env .output/server/index.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
